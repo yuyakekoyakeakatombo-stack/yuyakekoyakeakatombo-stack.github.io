@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Bota-Log の系統書が、発行されたあと書き換えられていないか、誰が発行したかを確かめるページ">
+<meta name="theme-color" content="#581b2a">
+<meta name="robots" content="noindex">
+<title>Bota-Log — 系統書の照合</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top"><a href="../">← STUDIO M.D.Q.</a><a href="./">BOTA-LOG</a></nav>
+
+<header class="page-title">
+  <h1>系統書の照合</h1>
+  <p>CERTIFICATE OF LINEAGE · VERIFICATION</p>
+</header>
+
+<main>
+<div id="out">
+  <section lang="ja">
+    <p>Bota-Log の系統書の右下にある「照合用QR」を、iPhone のカメラで読み取ってください。このページが開き、系統書が発行されたあと書き換えられていないか、誰が発行したかを確かめられます。</p>
+    <p>Bota-Log を入れている iPhone なら、アプリの中でも照合できます。</p>
+  </section>
+  <section lang="en">
+    <p class="meta">Scan the verification QR code at the bottom right of a Bota-Log certificate with your iPhone camera. This page opens and shows whether the certificate has been altered since it was issued, and who issued it.</p>
+  </section>
+</div>
+<p class="meta" style="margin-top:28px">照合はお使いのブラウザの中だけで行います。系統書の内容がどこかへ送られることはありません。<br>Verification runs entirely in your browser. Nothing is sent anywhere.</p>
+</main>
+
+<footer>Bota-Log<br>© 2026 <a href="../">Studio M.D.Q.</a></footer>
+</div>
+<script>
+// QR の中身は「#中身.署名.公開鍵」（いずれも base64url）。
+// 中身は raw deflate で縮めた JSON、署名は Ed25519。アプリ側は CultivationLog/Models/CertificateSignature.swift
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function b64url(s){ s = s.replace(/-/g,"+").replace(/_/g,"/"); while (s.length % 4) s += "="; const b = atob(s); return Uint8Array.from(b, c => c.charCodeAt(0)); }
+async function inflate(bytes){ const ds = new DecompressionStream("deflate-raw"); const w = new Blob([bytes]).stream().pipeThrough(ds); return new Uint8Array(await new Response(w).arrayBuffer()); }
+async function issuerID(pub){ const h = new Uint8Array(await crypto.subtle.digest("SHA-256", pub)); const hex = [...h.slice(0,8)].map(x => x.toString(16).padStart(2,"0").toUpperCase()).join(""); return hex.match(/.{4}/g).join("-"); }
+function fail(ja, en){ $("#out").innerHTML = `<p class="ng">${esc(ja)}</p><p class="meta">${esc(en)}</p>`; }
+(async () => {
+  const token = decodeURIComponent(location.hash.slice(1));
+  if (!token) return;
+  const parts = token.split(".");
+  if (parts.length !== 3) return fail("照合用のQRを読み取れませんでした。QRをもう一度読み取ってください。", "Couldn't read the verification QR. Please scan it again.");
+  let json, sig, pub;
+  try { json = await inflate(b64url(parts[0])); sig = b64url(parts[1]); pub = b64url(parts[2]); }
+  catch (e) { return fail("照合用のQRを読み取れませんでした。", "Couldn't read the verification QR."); }
+  let ok;
+  try {
+    const key = await crypto.subtle.importKey("raw", pub, {name: "Ed25519"}, false, ["verify"]);
+    ok = await crypto.subtle.verify({name: "Ed25519"}, key, sig, json);
+  } catch (e) {
+    return fail("このブラウザは照合に対応していません。新しい Safari・Chrome で開くか、Bota-Log アプリで読み取ってください。",
+                "This browser can't verify certificates. Use a recent Safari or Chrome, or scan it in the Bota-Log app.");
+  }
+  if (!ok) return fail("この系統書は、発行されたあとに書き換えられています。", "This certificate has been altered after it was issued.");
+  const p = JSON.parse(new TextDecoder().decode(json));
+  const id = await issuerID(pub);
+  const row = (k, v, mono) => v ? `<dt>${esc(k)}</dt><dd class="${mono ? "mono" : ""}">${esc(v)}</dd>` : "";
+  const lines = (p.p || []).map(l => {
+    const [lv, role, code, title] = l.split("|");
+    return `<dt class="${lv === "2" ? "lv2" : ""}">${lv === "1" ? "親" : "祖父母"}</dt><dd>${esc([role, code].filter(Boolean).join("  "))} <b>${esc(title)}</b></dd>`;
+  }).join("");
+  $("#out").innerHTML = `<p class="ok">✓ 書き換えられていません <span class="meta">Not altered</span></p>
+  <p class="meta">下の内容は発行したときのままです。紙の系統書と見比べてください。発行者IDは発行者ごとに決まった番号です。ショップやブリーダーが公開している発行者IDと同じか確かめると、本人の発行か分かります。</p>
+  <div class="card"><h3>発行者 <span class="meta">Issuer</span></h3><dl>${row("発行者ID", id, true)}${row("ブランド名/店舗名", p.b)}${row("お名前", p.i)}${row("発行日", p.d)}</dl></div>
+  <div class="card"><h3>本株 <span class="meta">Specimen</span></h3><dl>${row("証書番号", p.n, true)}${row("番号", p.c, true)}${row("名前", p.t)}${row("学名", p.s)}${row("譲渡先", p.r)}</dl></div>
+  ${lines ? `<div class="card"><h3>血統（親・祖父母） <span class="meta">Pedigree</span></h3><dl>${lines}</dl></div>` : ""}`;
+})();
+</script>
+</body>
+</html>
