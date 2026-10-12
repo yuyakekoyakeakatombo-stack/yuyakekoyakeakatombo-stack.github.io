@@ -3,96 +3,340 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Studio M.D.Q. — Small sparks. Brilliant ideas.</title>
 <meta name="description" content="Studio M.D.Q. は、小さなアイデアやひらめきをもとに、日々の暮らしをちょっと楽しくするアプリを個人で制作しています。">
-<title>Studio M.D.Q.</title>
+<meta name="theme-color" content="#f9f8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121210" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Studio M.D.Q.">
+<meta property="og:title" content="Studio M.D.Q. — Small sparks. Brilliant ideas.">
+<meta property="og:description" content="小さなアイデアやひらめきをもとに、日々の暮らしをちょっと楽しくするアプリを個人で制作しています。">
+<meta property="og:url" content="https://yuyakekoyakeakatombo-stack.github.io/">
+<meta property="og:image" content="https://yuyakekoyakeakatombo-stack.github.io/img/brand/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap">
 <style>
 *{box-sizing:border-box}
 :root{
-  --bg:#f4f1ea; --card:#fffdf8; --ink:#24221d; --ink2:#6b665b; --rule:#d9d3c5; --accent:#3d5a80;
+  --paper:#f9f8f5; --paper2:#f1efe9; --card:#ffffff; --ink:#1c1c1a; --ink2:#6c6a63; --ink3:#9a978e;
+  --rule:rgba(28,28,26,.11); --spark:#e9a63a; --glow:rgba(245,190,90,.2);
+  --latin:"Jost",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  --ja:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
   color-scheme:light dark;
 }
 @media (prefers-color-scheme:dark){
-  :root{ --bg:#16171a; --card:#1f2024; --ink:#ebe8e1; --ink2:#9d998f; --rule:#34353a; --accent:#9db8dc; }
+  :root{ --paper:#121210; --paper2:#1a1a17; --card:#1d1d1a; --ink:#f2efe8; --ink2:#aaa69c; --ink3:#77746c;
+         --rule:rgba(242,239,232,.12); --spark:#f4bd55; --glow:rgba(250,195,95,.22); }
 }
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
-  font-size:15px; line-height:1.9; letter-spacing:.02em;
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--ja);
+  font-size:15px; line-height:1.95; letter-spacing:.03em; -webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--spark); outline-offset:3px; border-radius:4px}
+img{max-width:100%}
+.container{max-width:1080px; margin:0 auto; padding:0 16px}
+@media (min-width:720px){ .container{padding:0 32px} }
+
+/* ロゴ（SVG をマスクにして文字色で塗る：明暗どちらでも同じ線になる） */
+.logo-mark,.logo-word{display:block; background:currentColor; -webkit-mask:var(--src) center/contain no-repeat; mask:var(--src) center/contain no-repeat}
+.logo-mark{--src:url(img/brand/mark.svg); aspect-ratio:169/197}
+.logo-word{--src:url(img/brand/wordmark.svg); aspect-ratio:594/71}
+
+/* ── ヘッダー ── */
+.site-head{position:sticky; top:0; z-index:10; background:color-mix(in srgb,var(--paper) 82%,transparent);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px); backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid transparent; transition:border-color .3s}
+.site-head.scrolled{border-bottom-color:var(--rule)}
+.site-head .container{display:flex; align-items:center; justify-content:space-between; height:60px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
+.brand .logo-mark{width:19px}
+.brand .logo-word{width:112px}
+.site-nav{display:flex; gap:clamp(16px,4vw,34px); font-family:var(--latin); font-size:13px; letter-spacing:.16em}
+.site-nav a{text-decoration:none; color:var(--ink2); padding:6px 0; position:relative}
+.site-nav a:hover{color:var(--ink)}
+.site-nav a::after{content:""; position:absolute; left:0; right:0; bottom:2px; height:1px; background:var(--spark);
+  transform:scaleX(0); transform-origin:left; transition:transform .35s ease}
+.site-nav a:hover::after{transform:scaleX(1)}
+@media (max-width:420px){ .brand .logo-word{width:88px} .site-nav{gap:14px; font-size:12px; letter-spacing:.12em} }
+
+/* ── ヒーロー ── */
+.hero{min-height:calc(100svh - 60px); display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:48px 0 88px; position:relative}
+.hero-mark{position:relative; width:clamp(96px,22vw,132px); color:var(--ink); margin-bottom:clamp(28px,5vw,40px)}
+.hero-mark svg{display:block; width:100%; height:auto; position:relative}
+.hero-mark::before{content:""; position:absolute; left:50%; top:58%; width:240%; aspect-ratio:1; translate:-50% -50%;
+  background:radial-gradient(circle, var(--glow) 0%, transparent 62%); opacity:0; animation:glow 2.4s .9s ease-out forwards}
+.hero-mark .rays{transform-origin:83px 104px; opacity:0; animation:spark .9s .5s cubic-bezier(.2,.8,.2,1.2) forwards}
+@keyframes spark{ from{opacity:0; transform:scale(.82)} to{opacity:1; transform:scale(1)} }
+@keyframes glow{ to{opacity:1} }
+.hero h1{margin:0; width:min(78vw,400px)}
+.hero h1 .logo-word{width:100%}
+.hero .tagline{margin:clamp(14px,3vw,22px) 0 0; font-family:var(--latin); font-weight:300; font-size:clamp(14px,3.6vw,17px);
+  letter-spacing:.2em; color:var(--ink)}
+.hero .lead{margin:clamp(30px,6vw,44px) 0 0; max-width:30em; color:var(--ink2); font-size:15px; line-height:2.1; text-wrap:pretty}
+.fade{opacity:0; translate:0 8px; animation:rise 1s ease-out forwards}
+.d1{animation-delay:.15s} .d2{animation-delay:.35s} .d3{animation-delay:.6s}
+@keyframes rise{ to{opacity:1; translate:0 0} }
+.scroll-cue{position:absolute; bottom:28px; left:50%; translate:-50% 0; width:1px; height:44px; background:var(--rule); overflow:hidden}
+.scroll-cue::after{content:""; position:absolute; left:0; top:-44px; width:1px; height:44px; background:var(--ink2); animation:cue 2.6s 1.6s ease-in-out infinite}
+@keyframes cue{ to{top:44px} }
+@media (prefers-reduced-motion:reduce){
+  .fade,.hero-mark .rays,.hero-mark::before{animation:none; opacity:1; translate:none}
+  .scroll-cue::after{animation:none}
 }
-.wrap{max-width:720px; margin:0 auto; padding:0 16px 56px}
-header{padding:72px 0 40px}
-.studio{font-size:13px; letter-spacing:.32em; color:var(--ink2); margin:0 0 14px}
-h1{font-size:clamp(26px,7vw,36px); font-weight:600; letter-spacing:.04em; line-height:1.35; margin:0}
-.lead{margin:16px 0 0; color:var(--ink2)}
-.lead span{display:block; font-size:13px}
-h2{font-size:13px; letter-spacing:.24em; color:var(--ink2); font-weight:600; margin:0 0 14px}
-.apps{display:grid; gap:14px}
-.app{
-  display:flex; gap:18px; align-items:center; padding:18px;
-  background:var(--card); border:1px solid var(--rule); border-radius:18px;
-  color:inherit; text-decoration:none; transition:transform .2s ease, border-color .2s ease;
-}
-.app:hover{border-color:var(--ink2); transform:translateY(-1px)}
-.app:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
-.app img{width:76px; height:76px; border-radius:18px; flex:none; display:block}
-.app .name{font-size:17px; font-weight:600; line-height:1.4; margin:0}
-.app .desc{margin:4px 0 6px; color:var(--ink2); font-size:14px; line-height:1.7}
-.tag{display:inline-block; font-size:11.5px; letter-spacing:.08em; padding:1px 10px; border-radius:99px; border:1px solid var(--rule); color:var(--ink2)}
-.tag.live{border-color:var(--accent); color:var(--accent)}
-.contact{margin-top:48px; padding-top:24px; border-top:1px solid var(--rule)}
-.contact p{margin:0}
-a{color:var(--accent)}
-footer{margin-top:40px; font-size:12px; color:var(--ink2)}
+
+/* ── セクション共通 ── */
+section{padding:clamp(72px,12vw,128px) 0}
+.sec-head{display:flex; align-items:baseline; gap:16px; margin:0 0 clamp(32px,6vw,52px)}
+.sec-head h2{margin:0; font-family:var(--latin); font-weight:400; font-size:clamp(28px,6vw,40px); letter-spacing:.06em; line-height:1.2}
+.sec-head .ja{font-size:13px; color:var(--ink3); letter-spacing:.2em}
+.sec-head::after{content:""; flex:1; height:1px; background:var(--rule); align-self:center}
+
+/* ── アプリ ── */
+.apps{display:grid; gap:24px; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+.app{display:flex; flex-direction:column; background:var(--card); border:1px solid var(--rule); border-radius:24px; overflow:hidden;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s}
+.app:hover{transform:translateY(-3px); box-shadow:0 18px 40px -18px rgba(0,0,0,.25)}
+.stage{position:relative; display:block; height:260px; overflow:hidden; background:var(--stage)}
+.stage img{position:absolute; width:46%; height:auto; border-radius:18px; box-shadow:0 14px 30px -10px rgba(0,0,0,.45);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.stage img:nth-child(1){left:6%; top:30px}
+.stage img:nth-child(2){right:6%; top:70px}
+.app:hover .stage img:nth-child(1){transform:translateY(-6px)}
+.app:hover .stage img:nth-child(2){transform:translateY(-10px)}
+.app-body{padding:22px 22px 24px; display:flex; flex-direction:column; flex:1}
+.app-id{display:flex; align-items:center; gap:14px}
+.app-id img{width:56px; height:56px; border-radius:14px; flex:none; box-shadow:0 0 0 1px var(--rule)}
+.app-id h3{margin:0; font-family:var(--latin); font-weight:500; font-size:20px; letter-spacing:.02em; line-height:1.3}
+.kind{margin:2px 0 0; font-family:var(--latin); font-size:11.5px; letter-spacing:.18em; color:var(--ink3); text-transform:uppercase}
+.app-body .desc{margin:16px 0 18px; color:var(--ink2); font-size:14.5px; line-height:1.95; text-wrap:pretty}
+.status{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink2); margin:0 0 18px}
+.status::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--ink3)}
+.status.live::before{background:#4fa36a; box-shadow:0 0 0 4px rgba(79,163,106,.15)}
+.app-links{margin:auto 0 0; padding:16px 0 0; border-top:1px solid var(--rule); list-style:none;
+  display:flex; flex-wrap:wrap; align-items:center; gap:6px 18px; font-size:13px}
+.app-links a{color:var(--ink2); text-decoration:none}
+.app-links a:hover{color:var(--ink); text-decoration:underline; text-underline-offset:4px; text-decoration-color:var(--spark)}
+.app-links .more{margin-right:auto; color:var(--ink); font-weight:500}
+.app-links .more::after{content:" →"; transition:margin .3s}
+.app-links .more:hover::after{margin-left:4px}
+
+/* ── アバウト ── */
+.about{background:var(--paper2)}
+.about-grid{display:grid; gap:clamp(32px,6vw,72px)}
+@media (min-width:860px){ .about-grid{grid-template-columns:5fr 6fr; align-items:start} }
+.about-copy .big{margin:0 0 22px; font-size:clamp(22px,4.6vw,28px); line-height:1.8; letter-spacing:.06em; font-weight:500; text-wrap:balance}
+.about-copy p{margin:0 0 14px; color:var(--ink2)}
+.about-copy .en{font-family:var(--latin); font-size:14px; line-height:1.8; letter-spacing:.02em; color:var(--ink3)}
+.values{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+.values li{display:grid; grid-template-columns:44px 1fr; gap:4px 18px; padding:22px; background:var(--card); border:1px solid var(--rule); border-radius:20px}
+.values svg{grid-row:span 2; width:44px; height:44px; color:var(--ink)}
+.values h3{margin:0; font-family:var(--latin); font-weight:500; font-size:17px; letter-spacing:.06em; line-height:1.4}
+.values h3 span{font-family:var(--ja); font-weight:400; font-size:12.5px; color:var(--ink3); margin-left:10px; letter-spacing:.1em}
+.values p{margin:0; color:var(--ink2); font-size:14px; line-height:1.9}
+
+/* ── コンタクト ── */
+.contact-box{text-align:center; padding:clamp(40px,8vw,64px) 20px; border:1px solid var(--rule); border-radius:28px; background:var(--card)}
+.contact-box p{margin:0 auto; max-width:34em; color:var(--ink2)}
+.mail{display:inline-block; margin:22px 0 18px; font-family:var(--latin); font-size:clamp(20px,5.4vw,30px); letter-spacing:.04em;
+  text-decoration:none; border-bottom:1px solid var(--rule); padding-bottom:4px; transition:border-color .3s}
+.mail:hover{border-color:var(--spark)}
+.contact-box .note{font-size:13px; color:var(--ink3)}
+
+/* ── フッター ── */
+.site-foot{border-top:1px solid var(--rule); padding:48px 0 calc(40px + env(safe-area-inset-bottom)); font-size:13px; color:var(--ink2)}
+.foot-grid{display:grid; gap:32px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.foot-brand{grid-column:1/-1; display:flex; align-items:center; gap:12px; color:var(--ink); text-decoration:none; justify-self:start}
+.foot-brand .logo-mark{width:24px}
+.foot-brand .logo-word{width:132px}
+@media (min-width:860px){ .foot-grid{grid-template-columns:2fr 1fr 1fr 1fr} .foot-brand{grid-column:auto; align-self:start} }
+.foot-col h4{margin:0 0 8px; font-family:var(--latin); font-weight:500; font-size:13px; letter-spacing:.08em; color:var(--ink)}
+.foot-col ul{list-style:none; margin:0; padding:0; line-height:2.1}
+.foot-col a{text-decoration:none}
+.foot-col a:hover{color:var(--ink); text-decoration:underline; text-underline-offset:3px}
+.copy{margin-top:40px; font-family:var(--latin); font-size:12px; letter-spacing:.08em; color:var(--ink3)}
+
+/* スクロールで現れる（JS が動かない環境ではそのまま見える） */
+.js .reveal{opacity:0; translate:0 18px; transition:opacity .9s ease, translate .9s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1; translate:0 0}
+@media (prefers-reduced-motion:reduce){ .js .reveal{opacity:1; translate:none; transition:none} }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <p class="studio">STUDIO M.D.Q.</p>
-  <h1 lang="en">Small sparks.<br>Brilliant ideas.</h1>
-  <p class="lead">Studio M.D.Q. は、小さなアイデアやひらめきをもとに、日々の暮らしをちょっと楽しくするアプリを個人で制作しています。
-    <span lang="en">Studio M.D.Q. is an independent maker of apps that start from small ideas and sparks, made to bring a little more fun to everyday life.</span></p>
+<header class="site-head" id="top">
+  <div class="container">
+    <a class="brand" href="./" aria-label="Studio M.D.Q. ホーム">
+      <span class="logo-mark" aria-hidden="true"></span><span class="logo-word" aria-hidden="true"></span>
+    </a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="#apps">Apps</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main>
-<h2>APPS</h2>
-<div class="apps">
-  <a class="app" href="my-little-invader/">
-    <img src="img/my-little-invader-icon.png" alt="" width="76" height="76">
-    <div>
-      <p class="name">My Little Invader</p>
-      <p class="desc">宇宙からきた小さな子を、現実の時間で育てる育成ゲーム。</p>
-      <span class="tag live">App Store で配信中</span>
-    </div>
-  </a>
-  <a class="app" href="my-fair-jelly/">
-    <img src="my-fair-jelly/img/icon.jpg" alt="" width="76" height="76">
-    <div>
-      <p class="name">My Fair Jelly</p>
-      <p class="desc">iPhone の中の、小さなクラゲの水槽。</p>
-      <span class="tag live">App Store で配信中</span>
-    </div>
-  </a>
-  <a class="app" href="bota-log/">
-    <img src="bota-log/img/icon.png" alt="" width="76" height="76">
-    <div>
-      <p class="name">Bota-Log</p>
-      <p class="desc">株ごとの記録と、親から子へつながる系譜の台帳。</p>
-      <span class="tag">近日公開</span>
-    </div>
-  </a>
+<div class="hero container">
+  <div class="hero-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 169 197" fill="currentColor" fill-rule="evenodd"><path class="rays" d="M158.8 37.8Q158.2 37.2 157.6 37Q157 36.8 156.4 36.8Q155.9 36.8 155.2 37Q154.6 37.2 144.9 46.6Q135.1 56 134.8 56.7Q134.5 57.4 134.5 58Q134.5 58.6 134.8 59.3Q135 60 135.6 60.6Q136.1 61.1 136.8 61.4Q137.5 61.8 138.1 61.8Q138.8 61.8 139.6 61.3Q140.4 60.9 149.7 51.8Q159 42.8 159.5 41.9Q160 41.1 160 40.4Q160 39.6 159.7 39Q159.4 38.4 158.8 37.8ZM7.2 37.2Q6.9 37.5 6.4 37.9Q6 38.4 5.6 39.1Q5.2 39.9 5.2 40.6Q5.2 41.4 5.6 41.9Q5.9 42.5 15.4 51.8Q25 61 25.7 61.4Q26.4 61.8 26.9 61.8Q27.4 61.8 28.3 61.3Q29.2 60.9 29.6 60.5Q30 60.1 30.4 59.3Q30.9 58.5 30.9 57.8Q30.9 57.1 30.7 56.8Q30.5 56.4 28.9 54.8Q27.2 53.1 24.8 50.9Q22.4 48.8 16.4 42.9Q10.5 37.1 9.6 36.9Q8.6 36.8 8.1 36.9Q7.6 37 7.2 37.2ZM82.5 4.4Q81.8 4.4 81 4.7Q80.2 5 79.8 5.6Q79.2 6.1 79.1 6.6Q78.9 7 78.9 20.6Q78.9 34.1 79.1 34.7Q79.2 35.2 79.9 35.9Q80.6 36.6 81 36.8Q81.4 37 82.2 37Q83.1 37 83.8 36.7Q84.4 36.4 85 35.8Q85.6 35.1 85.8 34.7Q86 34.2 86 20.9Q86 7.5 85.9 7Q85.8 6.5 85.2 5.8Q84.6 5.1 83.9 4.8Q83.2 4.5 82.5 4.4Z"/><path d="M63.4 182.2Q63.2 182.4 63.2 182.6Q63.2 182.8 63.6 183.3Q63.9 183.9 65 185.5Q66.1 187.1 66.9 187.9Q67.6 188.8 68.4 189.1Q69.1 189.5 82.2 189.6Q95.2 189.6 96 189.2Q96.8 188.9 97.7 187.9Q98.6 187 100.1 184.9Q101.6 182.9 101.6 182.6Q101.6 182.2 101.4 182.1Q101.1 181.9 99.6 181.8Q98 181.6 83.2 181.6Q68.4 181.6 66 181.8Q63.6 182 63.4 182.2ZM57.7 167.1Q57.4 167.8 57.4 170.5Q57.4 173.2 57.5 173.7Q57.6 174.1 58 174.4Q58.4 174.8 82.3 174.8Q106.2 174.8 106.6 174.6Q106.9 174.5 107.2 174Q107.6 173.5 107.6 170.3Q107.6 167.1 107.3 166.8Q107 166.4 106.7 166.2Q106.4 166.1 82.8 166.1Q59.1 166.1 58.6 166.3Q58 166.5 57.7 167.1ZM61.5 57.1Q59.1 58.1 57.2 59.1Q55.4 60.1 53.2 61.6Q51.1 63 48.8 64.9Q46.5 66.8 44.6 68.6Q42.8 70.5 41.3 72.2Q39.9 74 38 76.8Q36.1 79.6 35.1 81.7Q34 83.8 33.1 86.1Q32.1 88.4 32 89Q31.9 89.6 31.5 90.6Q31.1 91.5 30.4 94.7Q29.8 97.9 29.7 98.9Q29.6 100 29.4 101.2Q29.1 102.5 29.2 105.8Q29.2 109 29.4 109.8Q29.6 110.5 30 113.6Q30.4 116.6 30.6 117.2Q30.9 117.9 31.1 118.9Q31.2 119.9 31.5 120.4Q31.8 121 31.9 121.6Q32 122.2 32.9 124.5Q33.9 126.8 35.9 130.4Q38 134.1 39.1 135.7Q40.2 137.2 41.8 139.1Q43.2 140.9 44.8 142.4Q46.2 143.9 47.4 144.9Q48.6 145.9 50.7 147.3Q52.8 148.8 54 149.5Q55.2 150.2 56.1 150.9Q56.9 151.6 57 153.2Q57.1 154.8 57.1 156.6Q57.1 158.4 57.2 158.6Q57.4 158.9 57.6 159Q57.8 159.1 81.1 159.2Q104.4 159.4 105.8 159.2Q107.2 159.1 107.6 158.8Q107.9 158.5 107.9 155.5Q108 152.5 108.2 151.9Q108.4 151.4 108.9 150.9Q109.5 150.4 110.8 149.6Q112.1 148.9 114.7 146.9Q117.2 145 119.5 142.8Q121.8 140.6 123.3 138.8Q124.9 136.9 126.3 134.8Q127.8 132.8 128.8 131.1Q129.8 129.4 129.9 128.9Q130 128.5 130.9 126.8Q131.8 125 132.8 122.2Q133.8 119.4 134.2 117.4Q134.8 115.5 135 113.2Q135.2 111 135.4 110.2Q135.6 109.5 135.7 106.2Q135.8 102.9 135.2 98.8Q134.6 94.8 134.3 93.9Q134 93 133.9 92.4Q133.9 91.9 133.4 90.6Q133 89.4 132.9 88.9Q132.9 88.5 132.5 87.8Q132.1 87 132 86.4Q131.9 85.9 131.5 85.2Q131.1 84.5 131 84Q130.9 83.5 129.8 81.5Q128.8 79.5 126.8 76.6Q124.9 73.8 123.4 71.9Q121.9 70.1 120.3 68.6Q118.8 67 116.9 65.5Q115.1 64 112.2 62.1Q109.4 60.1 107.9 59.4Q106.4 58.6 105.9 58.3Q105.5 58 103.2 57.1Q101 56.1 100.1 55.9Q99.2 55.8 98.6 55.4Q97.9 55.1 96.9 54.9Q95.9 54.8 95.2 54.5Q94.6 54.2 93 54Q91.4 53.8 90.6 53.5Q89.8 53.2 88.2 53.2Q86.6 53.1 86 53Q85.4 52.9 82.2 52.9Q79 52.9 78.4 53Q77.8 53.1 76.3 53.2Q74.9 53.2 73.8 53.6Q72.6 53.9 71.2 54.1Q69.9 54.2 69.3 54.5Q68.8 54.8 67.8 54.9Q66.9 55.1 65.4 55.6Q63.9 56.1 61.5 57.1ZM97.2 104.6Q97.8 104.9 98.4 105.7Q99.1 106.5 99.4 107.2Q99.8 108 99.7 109.1Q99.6 110.2 99.2 111.2Q98.8 112.1 98.3 112.8Q97.9 113.4 97 114.2Q96.1 115 95.2 115.5Q94.4 116 93.9 116.1Q93.4 116.2 92.9 116.5Q92.5 116.8 90.5 117.2Q88.5 117.8 87.4 117.8Q86.4 117.8 86.2 117.5Q86 117.2 86 116.9Q86 116.6 86.5 114.5Q87 112.4 87.6 110.8Q88.2 109.2 89.1 107.9Q90 106.6 90.9 105.9Q91.8 105.1 92.8 104.6Q93.9 104.1 94.9 104.1Q95.9 104 96.3 104.1Q96.8 104.2 97.2 104.6ZM66.7 106Q67.4 105.1 68.2 104.6Q69.1 104.1 70 104.1Q70.9 104 71.4 104.1Q71.9 104.2 72.6 104.6Q73.4 105 74.2 105.8Q75.1 106.5 75.9 107.7Q76.8 108.9 76.9 109.5Q77.1 110.1 77.4 110.7Q77.8 111.2 78.4 113.8Q79.1 116.4 79.1 116.8Q79.1 117.2 79 117.4Q78.9 117.6 78.2 117.7Q77.6 117.8 75 117.2Q72.4 116.8 71.2 116.2Q70.1 115.8 69.3 115.2Q68.5 114.6 67.9 114Q67.2 113.4 66.6 112.4Q66 111.4 65.8 110.6Q65.6 109.8 65.6 109.2Q65.6 108.6 65.8 107.8Q66 106.9 66.7 106ZM62.2 64.7Q65.5 63.1 68.5 62.1Q71.5 61.1 72.4 61Q73.4 60.9 74.6 60.5Q75.9 60.1 76.8 60.1Q77.8 60.1 78.2 60Q78.8 59.9 82.1 59.9Q85.5 59.9 86.4 60.1Q87.4 60.2 88.5 60.3Q89.6 60.4 91.4 60.8Q93.2 61.1 95.2 61.7Q97.1 62.2 97.4 62.4Q97.8 62.6 98.6 62.9Q99.5 63.1 100.1 63.4Q100.6 63.8 101.1 63.9Q101.6 64 103.8 65.1Q106 66.2 107.6 67.2Q109.1 68.2 111.2 70Q113.4 71.8 115.3 73.7Q117.2 75.6 118.1 76.6Q118.9 77.5 120.2 79.4Q121.6 81.4 122.8 83.6Q124 85.8 124.9 87.8Q125.8 89.8 125.9 90.6Q126.1 91.4 126.5 92.2Q126.9 93 127.5 95.9Q128.1 98.8 128.1 99.4Q128.1 100.1 128.4 101.1Q128.6 102 128.6 104.7Q128.6 107.4 128.4 108.9Q128.1 110.4 128.1 111.6Q128 112.8 127.4 115.6Q126.8 118.4 126.5 118.9Q126.2 119.4 126 120.3Q125.8 121.2 124.2 124.3Q122.8 127.4 121.8 129Q120.8 130.6 119.7 132.1Q118.6 133.5 117.2 135.1Q115.8 136.8 114 138.4Q112.2 140 110.4 141.4Q108.5 142.8 107.1 143.6Q105.6 144.5 104.7 144.9Q103.8 145.4 103.4 145.8Q103 146.1 102.6 147.1Q102.1 148.1 101.8 149.6Q101.5 151.1 101.2 151.4Q101 151.8 100.8 151.9Q100.5 152 95.4 151.9Q90.4 151.9 88.4 151.8Q86.4 151.6 86.2 151.3Q86 151 85.9 146.8Q85.9 142.5 86 133.4Q86.1 124.2 86.6 124Q87.1 123.8 88 123.8Q88.9 123.8 89.6 123.5Q90.4 123.2 92.1 123Q93.8 122.8 94.2 122.5Q94.8 122.2 95.8 121.9Q96.9 121.6 97.7 121.2Q98.5 120.8 99.4 120.1Q100.4 119.5 101.4 118.6Q102.4 117.6 103.1 116.7Q103.8 115.8 104.4 114.4Q105 113.1 105.4 111.8Q105.8 110.4 105.8 109Q105.8 107.6 105.3 106Q104.9 104.4 104.1 103.1Q103.2 101.8 102.5 101Q101.8 100.2 100.8 99.6Q99.8 99 98.8 98.6Q97.8 98.2 97.1 98.1Q96.4 98 95.1 98Q93.8 98 92.1 98.5Q90.4 99 89.3 99.6Q88.2 100.2 87.1 101.3Q85.9 102.4 84.9 103.7Q84 105 83.6 106Q83.1 107 82.9 107.2Q82.6 107.5 82.5 107.5Q82.4 107.5 82.2 107.3Q82 107.1 81.7 106.3Q81.4 105.5 80.6 104.2Q79.8 103 78.7 101.9Q77.6 100.9 77.1 100.5Q76.6 100.1 75.6 99.6Q74.5 99 72.9 98.6Q71.4 98.1 70 98.1Q68.6 98.1 67.2 98.6Q65.8 99 64.9 99.4Q64.1 99.9 63 100.9Q61.9 101.9 61.5 102.4Q61.1 102.9 60.6 103.9Q60.1 105 59.8 106.4Q59.5 107.9 59.5 109Q59.5 110.1 59.8 111.4Q60 112.8 60.6 114.1Q61.1 115.5 61.9 116.6Q62.8 117.6 63.9 118.7Q65.1 119.8 67.1 120.8Q69 121.9 69.6 122Q70.1 122.1 71 122.5Q71.9 122.9 73 123Q74.1 123.1 75.4 123.4Q76.6 123.8 77.4 123.8Q78.2 123.8 78.4 123.8Q78.6 123.9 78.9 124.2Q79.2 124.6 79.2 137.8Q79.2 151 79.2 151.2Q79.1 151.4 78.8 151.6Q78.5 151.9 71.4 151.9Q64.2 151.9 63.9 151.6Q63.6 151.2 63.2 149.6Q62.8 147.9 62.4 147Q62 146.1 61.6 145.7Q61.1 145.2 59.5 144.5Q57.9 143.8 55.6 142.2Q53.4 140.8 52.4 139.9Q51.5 139.1 48.9 136.5Q46.4 133.9 45.4 132.6Q44.5 131.4 42.8 128.4Q41 125.5 40.1 123.4Q39.1 121.4 39 120.8Q38.9 120.1 38.4 119.1Q38 118 37.4 115.5Q36.9 113 36.8 111.7Q36.8 110.4 36.5 108.9Q36.2 107.5 36.2 105.5Q36.2 103.5 36.3 102.8Q36.4 102 36.6 101Q36.9 100 36.9 99.2Q36.9 98.4 37.4 95.8Q38 93.1 39 90.3Q40 87.5 40.4 86.9Q40.8 86.2 41.4 84.8Q42 83.4 43.6 81Q45.1 78.6 46.4 77.1Q47.8 75.5 50 73.2Q52.2 71 54 69.6Q55.8 68.2 57.3 67.2Q58.9 66.2 62.2 64.7Z"/></svg></div>
+  <h1 class="fade d1"><span class="logo-word" role="img" aria-label="Studio M.D.Q"></span></h1>
+  <p class="tagline fade d2" lang="en">Small sparks. Brilliant ideas.</p>
+  <p class="lead fade d3">小さなアイデアやひらめきをもとに、<br>日々の暮らしをちょっと楽しくするアプリを、<br>個人で制作しています。</p>
+  <span class="scroll-cue" aria-hidden="true"></span>
 </div>
 
-<section class="contact">
-  <h2>CONTACT</h2>
-  <p>アプリについてのお問い合わせは、各アプリのサポートページか、下記のメールまで。</p>
-  <p>Email：<a href="mailto:mdq100v@gmail.com">mdq100v@gmail.com</a></p>
+<section id="apps">
+  <div class="container">
+    <div class="sec-head reveal"><h2 lang="en">Apps</h2><span class="ja">アプリ</span></div>
+    <div class="apps">
+
+      <article class="app reveal">
+        <a class="stage" href="my-fair-jelly/" tabindex="-1" aria-hidden="true"
+           style="--stage:radial-gradient(120% 90% at 50% 0%,#2b5876 0%,#0d2236 55%,#06101c 100%)">
+          <img src="my-fair-jelly/img/day.jpg" alt="" width="571" height="1240" loading="lazy">
+          <img src="my-fair-jelly/img/night.jpg" alt="" width="571" height="1240" loading="lazy">
+        </a>
+        <div class="app-body">
+          <div class="app-id">
+            <img src="my-fair-jelly/img/icon.jpg" alt="" width="56" height="56">
+            <div><h3>My Fair Jelly</h3><p class="kind" lang="en">Ambient aquarium</p></div>
+          </div>
+          <p class="desc">透きとおるクラゲが、淡い光の中をゆったりと漂う。ただ眺めるだけで気持ちが静かになる、iPhone の中の小さな水槽。</p>
+          <p class="status live">App Store で配信中</p>
+          <ul class="app-links">
+            <li><a class="more" href="my-fair-jelly/">詳しく見る</a></li>
+            <li><a href="https://apps.apple.com/jp/app/my-fair-jelly/id6819178234">App Store</a></li>
+            <li><a href="my-fair-jelly/support.html">サポート</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="app reveal">
+        <a class="stage" href="my-little-invader/" tabindex="-1" aria-hidden="true"
+           style="--stage:#e9e1cb radial-gradient(rgba(0,0,0,.07) 1px,transparent 1px) 0 0/5px 5px">
+          <img src="my-little-invader/img/screen1.jpg" alt="" width="555" height="1200" loading="lazy">
+          <img src="my-little-invader/img/screen2.jpg" alt="" width="555" height="1200" loading="lazy">
+        </a>
+        <div class="app-body">
+          <div class="app-id">
+            <img src="img/my-little-invader-icon.png" alt="" width="56" height="56">
+            <div><h3>My Little Invader</h3><p class="kind" lang="en">Virtual pet game</p></div>
+          </div>
+          <p class="desc">宇宙からやってきた小さな子を、現実と同じ時間の流れの中で育てる。育て方しだいで姿も結末も変わる、手のひらサイズの育成ゲーム。</p>
+          <p class="status live">App Store で配信中</p>
+          <ul class="app-links">
+            <li><a class="more" href="my-little-invader/">詳しく見る</a></li>
+            <li><a href="https://apps.apple.com/jp/app/id6816311415">App Store</a></li>
+            <li><a href="my-little-invader/support.html">サポート</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="app reveal">
+        <a class="stage" href="bota-log/" tabindex="-1" aria-hidden="true"
+           style="--stage:radial-gradient(120% 90% at 50% 0%,#9a3a4b 0%,#6e2433 55%,#4a1822 100%)">
+          <img src="bota-log/img/collection.jpg" alt="" width="571" height="1238" loading="lazy">
+          <img src="bota-log/img/lineage.jpg" alt="" width="571" height="1238" loading="lazy">
+        </a>
+        <div class="app-body">
+          <div class="app-id">
+            <img src="bota-log/img/icon.png" alt="" width="56" height="56">
+            <div><h3>Bota-Log</h3><p class="kind" lang="en">Cultivation ledger</p></div>
+          </div>
+          <p class="desc">株ごとの記録と、親から子へつながる系譜を、1冊の台帳に。食虫植物やビカクシダ、塊根植物を育てる人のための記録アプリ。</p>
+          <p class="status">近日公開</p>
+          <ul class="app-links">
+            <li><a class="more" href="bota-log/">詳しく見る</a></li>
+            <li><a href="bota-log/support.html">サポート</a></li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="sec-head reveal"><h2 lang="en">About</h2><span class="ja">スタジオについて</span></div>
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p class="big">ひらめきの芽を、<br>毎日のたのしみに。</p>
+        <p>Studio M.D.Q. は、小さなアイデアやひらめきをもとに、日々の暮らしをちょっと楽しくするアプリを個人で制作しています。</p>
+        <p>企画からデザイン、開発、サポートまで、ひとりで手がけています。ロゴの電球に芽吹いた小さな双葉は、思いついたアイデアを、ていねいに育てていく気持ちのしるしです。</p>
+        <p class="en" lang="en">Studio M.D.Q. is an independent maker of apps that start from small ideas and sparks, made to bring a little more fun to everyday life.</p>
+      </div>
+      <ul class="values">
+        <li class="reveal">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M22 6v7M22 31v7M6 22h7M31 22h7M11 11l5 5M28 28l5 5M33 11l-5 5M16 28l-5 5"/></svg>
+          <h3 lang="en">Spark<span>ひらめく</span></h3>
+          <p>暮らしの中の「こうだったらいいのに」を出発点に。小さな思いつきを、そのままにしません。</p>
+        </li>
+        <li class="reveal">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 38V21"/><path d="M22 23c0-6-4-9-10-9 0 6 4 9 10 9zM22 21c0-6 4-9 10-9 0 6-4 9-10 9z"/></svg>
+          <h3 lang="en">Grow<span>そだてる</span></h3>
+          <p>見た目の美しさと、さわり心地。細部までじっくり手をかけて、長く使えるアプリに育てます。</p>
+        </li>
+        <li class="reveal">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="19" r="10"/><path d="M17 33h10M19 38h6"/></svg>
+          <h3 lang="en">Light<span>あかるく</span></h3>
+          <p>使う人の毎日を、ほんの少し明るく。そっと寄り添う、やさしい道具であることを大切にしています。</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="sec-head reveal"><h2 lang="en">Contact</h2><span class="ja">お問い合わせ</span></div>
+    <div class="contact-box reveal">
+      <p>アプリについてのご質問や不具合のご報告は、こちらのメールまでお寄せください。</p>
+      <a class="mail" href="mailto:mdq100v@gmail.com">mdq100v@gmail.com</a>
+      <p class="note">よくある質問は、各アプリのサポートページにまとめています。</p>
+    </div>
+  </div>
 </section>
 </main>
 
-<footer>© 2026 Studio M.D.Q.（Yuya Kato）</footer>
-</div>
+<footer class="site-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <a class="foot-brand" href="#top" aria-label="ページの先頭へ">
+        <span class="logo-mark" aria-hidden="true"></span><span class="logo-word" aria-hidden="true"></span>
+      </a>
+      <div class="foot-col">
+        <h4>My Fair Jelly</h4>
+        <ul><li><a href="my-fair-jelly/">紹介</a></li><li><a href="my-fair-jelly/support.html">サポート</a></li><li><a href="my-fair-jelly/privacy.html">プライバシーポリシー</a></li></ul>
+      </div>
+      <div class="foot-col">
+        <h4>My Little Invader</h4>
+        <ul><li><a href="my-little-invader/">紹介</a></li><li><a href="my-little-invader/support.html">サポート</a></li><li><a href="my-little-invader/privacy.html">プライバシーポリシー</a></li></ul>
+      </div>
+      <div class="foot-col">
+        <h4>Bota-Log</h4>
+        <ul><li><a href="bota-log/">紹介</a></li><li><a href="bota-log/support.html">サポート</a></li><li><a href="bota-log/privacy.html">プライバシーポリシー</a></li></ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 Studio M.D.Q. (Yuya Kato)</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var head=document.querySelector('.site-head');
+  function onScroll(){ head.classList.toggle('scrolled', window.scrollY>8) }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target) } }) },{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){ io.observe(e) });
+})();
+</script>
 </body>
 </html>

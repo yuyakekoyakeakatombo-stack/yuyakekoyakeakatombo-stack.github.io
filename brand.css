@@ -1,0 +1,7 @@
+/* Studio M.D.Q. のロゴ（各アプリのページ上部の「スタジオへ戻る」リンク）
+   SVG をマスクにして文字色で塗るので、どのアプリの配色・明暗でもそのページの色になじむ。 */
+.mdq-home{display:inline-flex; align-items:center; gap:8px; vertical-align:middle; text-decoration:none; color:inherit}
+.mdq-mark,.mdq-word{display:block; background:currentColor; -webkit-mask:var(--src) center/contain no-repeat; mask:var(--src) center/contain no-repeat}
+.mdq-mark{--src:url(img/brand/mark.svg); width:14px; aspect-ratio:169/197}
+.mdq-word{--src:url(img/brand/wordmark.svg); width:86px; aspect-ratio:594/71}
+.top{align-items:center}
