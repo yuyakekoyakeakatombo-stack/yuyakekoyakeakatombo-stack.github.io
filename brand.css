@@ -5,3 +5,12 @@
 .mdq-mark{--src:url(img/brand/mark.svg); width:14px; aspect-ratio:169/197}
 .mdq-word{--src:url(img/brand/wordmark.svg); width:90px; aspect-ratio:618/71}
 .top{align-items:center}
+
+/* 戻るボタン（左）とスタジオのロゴ（右） */
+.top{display:flex; flex-wrap:nowrap; justify-content:space-between; gap:12px}
+.top a.mdq-back{display:inline-flex; align-items:center; gap:8px; padding:5px 14px 5px 12px; border-radius:99px;
+  border:1px solid color-mix(in srgb,currentColor 35%,transparent); text-decoration:none;
+  font-size:12.5px; letter-spacing:.06em; line-height:1.5; white-space:nowrap; margin:0}
+.mdq-back::before{content:""; width:6px; height:6px; border-left:1.5px solid; border-bottom:1.5px solid; transform:rotate(45deg); margin-left:2px}
+.top a.mdq-back:hover{border-color:currentColor}
+.top a.mdq-home{margin:0}
