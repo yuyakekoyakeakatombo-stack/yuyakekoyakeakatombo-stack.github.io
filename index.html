@@ -70,10 +70,13 @@ img{max-width:100%}
 .hero-mark{position:relative; width:clamp(96px,22vw,132px); color:var(--ink); margin-bottom:clamp(28px,5vw,40px)}
 .hero-mark svg{display:block; width:100%; height:auto; position:relative}
 .hero-mark::before{content:""; position:absolute; left:50%; top:58%; width:240%; aspect-ratio:1; translate:-50% -50%;
-  background:radial-gradient(circle, var(--glow) 0%, transparent 62%); opacity:0; animation:glow 2.4s .9s ease-out forwards}
+  background:radial-gradient(circle, var(--glow) 0%, transparent 62%); opacity:0;
+  animation:glow 2.4s .9s ease-out forwards, breathe 6.5s 3.3s ease-in-out infinite}
 .hero-mark .rays{transform-origin:83px 104px; opacity:0; animation:spark .9s .5s cubic-bezier(.2,.8,.2,1.2) forwards}
 @keyframes spark{ from{opacity:0; transform:scale(.82)} to{opacity:1; transform:scale(1)} }
 @keyframes glow{ to{opacity:1} }
+/* 灯ったあとは、ゆっくり息をするように強弱を繰り返す */
+@keyframes breathe{ 0%,100%{filter:opacity(1); scale:1} 50%{filter:opacity(.35); scale:.92} }
 .hero h1{margin:0; width:min(80vw,416px)}
 .hero h1 .logo-word{width:100%}
 .hero .tagline{margin:clamp(14px,3vw,22px) 0 0; font-family:var(--latin); font-weight:300; font-size:clamp(14px,3.6vw,17px);
