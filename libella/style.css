@@ -1,0 +1,93 @@
+/* Libella — 紹介・サポート・プライバシーポリシー共通
+   アプリと同じ「計測器」の意匠：黒い盤面に細い線、丸みのある細い数字、水色の気泡と、水平の緑。 */
+*{box-sizing:border-box}
+:root{
+  --bg:#0b0b0e; --panel:rgba(255,255,255,.035); --ink:rgba(255,255,255,.92); --ink2:rgba(255,255,255,.58);
+  --ink3:rgba(255,255,255,.40); --line:rgba(255,255,255,.14); --frame:rgba(255,255,255,.42);
+  --accent:#6bccf2; --level:#5ce094;
+  --round:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",-apple-system,BlinkMacSystemFont,sans-serif;
+  color-scheme:dark;
+}
+html{-webkit-text-size-adjust:100%; background:var(--bg)}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-size:15px; line-height:1.95; letter-spacing:.02em;
+}
+.wrap{max-width:700px; margin:0 auto; padding:0 16px 72px}
+.top{display:flex; flex-wrap:wrap; gap:6px 18px; padding:16px 0 0; font-size:12px; letter-spacing:.14em}
+.top a{color:var(--ink2); text-decoration:none}
+.top a:hover{color:var(--ink)}
+
+/* ── ヒーロー ── */
+.hero{text-align:center; padding:48px 0 30px}
+.hero .icon{width:104px; height:104px; border-radius:24px; display:block; margin:0 auto 22px;
+  box-shadow:0 0 0 1px var(--line), 0 18px 50px rgba(107,204,242,.16)}
+.kicker{font-family:var(--round); font-size:11px; font-weight:500; letter-spacing:.3em; color:var(--ink3); margin:0 0 6px}
+h1{font-family:var(--round); font-weight:200; font-size:clamp(38px,11vw,54px); letter-spacing:.06em; line-height:1.2; margin:0}
+.hero .sub{margin:12px 0 0; color:var(--ink2); font-size:15px}
+.badge{display:inline-block; margin-top:24px; padding:10px 26px; border-radius:99px; text-decoration:none;
+  border:1px solid var(--frame); color:var(--ink); font-size:14px; letter-spacing:.12em}
+a.badge:hover{border-color:var(--accent); color:var(--accent)}
+.langs{margin-top:16px; font-size:13px}
+
+/* 気泡管：ゆっくり揺れて、真ん中で水平（緑）に落ち着く */
+.vial{position:relative; width:min(78vw,340px); height:44px; margin:34px auto 0; border:1px solid var(--frame); border-radius:99px}
+.vial::before,.vial::after{content:""; position:absolute; top:7px; bottom:7px; width:1px; background:var(--frame)}
+.vial::before{left:calc(50% - 26px)} .vial::after{left:calc(50% + 26px)}
+.vial .bubble{position:absolute; top:7px; left:calc(50% - 15px); width:30px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff 0 8%, var(--accent) 38%, rgba(107,204,242,.25) 75%);
+  box-shadow:0 0 18px rgba(107,204,242,.45);
+  animation:settle 9s cubic-bezier(.45,0,.25,1) infinite}
+.vial .bubble::after{content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid var(--level); opacity:0;
+  animation:lock 9s ease infinite}
+@keyframes settle{
+  0%{transform:translateX(-118px)} 22%{transform:translateX(22px)} 34%{transform:translateX(-9px)}
+  44%{transform:translateX(3px)} 52%,84%{transform:translateX(0)} 100%{transform:translateX(-118px)}
+}
+@keyframes lock{ 0%,50%{opacity:0} 56%,82%{opacity:1} 92%,100%{opacity:0} }
+.readout{font-family:var(--round); font-weight:200; font-size:40px; letter-spacing:.02em; line-height:1; margin:18px 0 0; font-variant-numeric:tabular-nums}
+.readout small{display:block; margin-top:10px; font-size:11px; font-weight:500; letter-spacing:.3em; color:var(--level)}
+@media (prefers-reduced-motion:reduce){ .vial .bubble{animation:none} .vial .bubble::after{animation:none; opacity:1} }
+
+/* ── スクリーンショット ── */
+.shots{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
+  margin:0 -16px 12px; padding:6px 16px 18px; scrollbar-width:thin}
+.shots figure{margin:0; flex:none; width:min(46vw,220px); scroll-snap-align:start}
+.shots img{width:100%; height:auto; aspect-ratio:1320/2868; display:block; border-radius:18px; border:1px solid var(--line); background:#000}
+.shots figcaption{font-size:12px; color:var(--ink2); text-align:center; margin-top:6px}
+.wide{margin:6px 0 0}
+.wide img{width:100%; height:auto; aspect-ratio:2868/1320; display:block; border-radius:18px; border:1px solid var(--line); background:#000}
+.wide figcaption{font-size:12px; color:var(--ink2); text-align:center; margin-top:6px}
+
+/* ── 本文 ── */
+.lead{font-size:17px; line-height:2.1; text-align:center; margin:30px 0 10px}
+h2{font-family:var(--round); font-weight:400; font-size:18px; letter-spacing:.06em; margin:46px 0 12px; text-wrap:balance;
+  display:flex; align-items:center; gap:12px}
+h2::after{content:""; flex:1; height:1px; background:var(--line)}
+h3{font-weight:600; font-size:15px; margin:26px 0 6px}
+p, ul, ol{margin:0 0 12px}
+ul, ol{padding-left:1.3em}
+li{margin:3px 0}
+li::marker{color:var(--ink3)}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.card{padding:18px 20px; margin:14px 0; border-radius:18px; border:1px solid var(--line); background:var(--panel)}
+.card > :last-child{margin-bottom:0}
+.card h3{margin-top:0; font-family:var(--round); font-weight:500; letter-spacing:.04em}
+.card .tag{display:inline-block; margin-left:8px; padding:0 9px; border-radius:99px; font-size:11px; font-weight:500;
+  letter-spacing:.12em; vertical-align:2px; border:1px solid var(--line); color:var(--ink2)}
+.card.pro{border-color:rgba(107,204,242,.35); background:linear-gradient(180deg,rgba(107,204,242,.07),transparent 70%)}
+.card.pro .tag{border-color:rgba(107,204,242,.5); color:var(--accent)}
+.note{padding:16px 18px; border-radius:14px; border-left:2px solid var(--level); background:var(--panel); color:var(--ink2); font-size:14px}
+.q{font-weight:600; margin:0 0 4px}
+.meta{color:var(--ink2); font-size:13px}
+.links{display:flex; flex-wrap:wrap; gap:10px; list-style:none; padding:0; margin:18px 0 0}
+.links a{display:inline-block; padding:6px 18px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; font-size:14px}
+.links a:hover{border-color:var(--accent)}
+hr{border:0; height:1px; background:var(--line); margin:60px 0 0}
+.page-title{padding:44px 0 8px; text-align:center}
+.page-title h1{font-size:clamp(26px,7vw,34px); font-weight:300}
+.page-title p{color:var(--ink2); margin:8px 0 0; font-size:13px; letter-spacing:.2em}
+footer{margin-top:56px; text-align:center; font-size:12px; color:var(--ink2); line-height:2}
+footer a{color:var(--ink2)}
