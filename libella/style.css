@@ -54,11 +54,8 @@ a.badge:hover{border-color:var(--accent); color:var(--accent)}
 .shots{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
   margin:0 -16px 12px; padding:6px 16px 18px; scrollbar-width:thin}
 .shots figure{margin:0; flex:none; width:min(46vw,220px); scroll-snap-align:start}
-.shots img{width:100%; height:auto; aspect-ratio:1320/2868; display:block; border-radius:18px; border:1px solid var(--line); background:#000}
+.shots img{width:100%; height:auto; aspect-ratio:1206/2622; display:block; border-radius:18px; border:1px solid var(--line); background:#000}
 .shots figcaption{font-size:12px; color:var(--ink2); text-align:center; margin-top:6px}
-.wide{margin:6px 0 0}
-.wide img{width:100%; height:auto; aspect-ratio:2868/1320; display:block; border-radius:18px; border:1px solid var(--line); background:#000}
-.wide figcaption{font-size:12px; color:var(--ink2); text-align:center; margin-top:6px}
 
 /* ── 本文 ── */
 .lead{font-size:17px; line-height:2.1; text-align:center; margin:30px 0 10px}
