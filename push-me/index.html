@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="PUSH-ME ! — 壁に、赤いボタンがひとつ。押すと、カチッ。それだけ。……たいていは。押すと、たまにしゃべるボタンのアプリ。">
+<meta name="theme-color" content="#ebeaee">
+<title>PUSH-ME ! — 押すと、たまにしゃべるボタン</title>
+<link rel="apple-touch-icon" href="img/icon.jpg">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="../img/brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../brand.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top"><a class="mdq-back" href="../#apps">アプリ一覧</a><a class="mdq-home" href="../" aria-label="Studio M.D.Q. ホーム"><span class="mdq-mark" aria-hidden="true"></span><span class="mdq-word" aria-hidden="true"></span></a></nav>
+
+<div class="wall">
+  <p class="says" id="says" aria-live="polite">赤いボタンが、ひとつ。</p>
+  <button class="button" id="button" type="button" aria-label="赤いボタンを押す">
+    <img class="up" src="img/button-up.jpg" alt="" width="560" height="560">
+    <img class="down" src="img/button-down.jpg" alt="" width="560" height="560">
+  </button>
+  <p class="count" id="count">押してみてください</p>
+</div>
+
+<header class="hero">
+  <img class="icon" src="img/icon.jpg" alt="PUSH-ME ! のアイコン" width="96" height="96">
+  <h1 lang="en">PUSH-ME !</h1>
+  <p class="sub">押すと、たまにしゃべるボタン</p>
+  <span class="badge">App Store にて近日公開</span>
+  <div class="langs"><a href="#en">English</a></div>
+</header>
+
+<main>
+<div class="shots" role="list" aria-label="スクリーンショット">
+  <figure role="listitem"><img src="img/shot01.jpg" alt="赤いボタンが、ひとつ。白い壁に赤いボタンがある画面" width="571" height="1240" loading="lazy"></figure>
+  <figure role="listitem"><img src="img/shot02.jpg" alt="カチッ。ボタンを押し込んだところ" width="571" height="1240" loading="lazy"></figure>
+  <figure role="listitem"><img src="img/shot03.jpg" alt="たまに、何か起きる。かも。" width="571" height="1240" loading="lazy"></figure>
+  <figure role="listitem"><img src="img/shot04.jpg" alt="ダークモード。暗い部屋で、懐中電灯に下から照らされたボタン" width="571" height="1240" loading="lazy"></figure>
+</div>
+
+<section lang="ja">
+<div class="story">
+  <p>壁に、赤いボタンがひとつ。</p>
+  <p>押すと、カチッ。<br>それだけ。……たいていは。</p>
+  <p>ときどき壁が開いて、小さな液晶に、<br>ボタンがひとこと話します。</p>
+</div>
+
+<div class="card">
+  <ul>
+    <li>どうでもいいこと、季節のこと、きょうの天気のこと、きょうの日付のこと</li>
+    <li>押した回数の節目には、ちょっとしたお祝いも</li>
+    <li>ほかのボタンのふりをすることも、あるとか、ないとか</li>
+    <li>暗い部屋で懐中電灯に照らされる、ダークモード</li>
+    <li>押した感触のある音と振動</li>
+    <li>投げ銭すると、ボタンがよろこびます</li>
+  </ul>
+</div>
+<p class="story" style="margin-top:22px">何の役にも立ちません。<br>押したくなったら、押してください。</p>
+
+<p class="meta">基本無料。ときどき広告が表示されます。アプリ内課金は投げ銭だけで、買っても機能は変わりません。<br>動作環境：iPhone（iOS 17 以降）／日本語</p>
+<ul class="links">
+  <li><a href="support.html">サポート</a></li>
+  <li><a href="privacy.html">プライバシーポリシー</a></li>
+</ul>
+</section>
+
+<hr>
+
+<section lang="en" id="en">
+<h2 lang="en">PUSH-ME !</h2>
+<p>A single red button on a wall. Press it: click. That's all… usually. Now and then the wall opens and the button says a few words on a tiny LCD — about nothing much, the season, today's weather or today's date.</p>
+<p>It is completely useless. Press it whenever you feel like it.</p>
+<p class="meta">Free, with occasional ads. The only in-app purchases are tips, which change nothing. Requires iOS 17 or later. The app is in Japanese only. Coming soon to the App Store.</p>
+<ul class="links">
+  <li><a href="support.html#en">Support</a></li>
+  <li><a href="privacy.html#en">Privacy Policy</a></li>
+</ul>
+</section>
+</main>
+
+<footer><span lang="en">PUSH-ME !</span><br>© 2026 <a href="../">Studio M.D.Q.</a></footer>
+</div>
+
+<script>
+// ページの上のボタン。アプリのセリフは見せず、このページだけのひとことを、たまに。
+(function(){
+  var btn=document.getElementById('button'), says=document.getElementById('says'), count=document.getElementById('count');
+  var n=0, down=false;
+  try{ n=parseInt(localStorage.getItem('pushme.site.count')||'0',10)||0 }catch(e){}
+  if(n>0) count.textContent='押した回数　'+n;
+
+  var LINES=['……ここは、Webサイトです。','続きは、アプリで。','押しすぎでは。','しゃべるのは、アプリのほうです。','まだ押す？','……。'];
+  var nextTalk=12+Math.floor(Math.random()*16);
+
+  // 音（押したときだけ鳴らす。消音モードでは鳴らない Web Audio を使う）
+  var ctx=null, ready=null, buf={};
+  var raw=Promise.all(['click_down','click_up'].map(function(k){
+    return fetch('sound/'+k+'.m4a').then(function(r){return r.arrayBuffer()}).then(function(a){return [k,a]}).catch(function(){return [k,null]});
+  }));
+  function ensure(){
+    if(ready) return ready;
+    var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return ready=Promise.resolve();
+    ctx=new AC();
+    return ready=raw.then(function(list){ return Promise.all(list.map(function(p){
+      if(!p[1]) return null;
+      return new Promise(function(ok){ ctx.decodeAudioData(p[1],function(b){buf[p[0]]=b; ok()},function(){ok()}) });
+    })) });
+  }
+  function play(k){
+    try{ ensure().then(function(){ if(!ctx||!buf[k]) return; if(ctx.state==='suspended') ctx.resume();
+      var s=ctx.createBufferSource(); s.buffer=buf[k]; s.connect(ctx.destination); s.start() }) }catch(e){}
+  }
+
+  function say(t){ says.textContent=t; says.classList.remove('fresh'); void says.offsetWidth; says.classList.add('fresh') }
+  function press(){ if(down) return; down=true; btn.classList.add('pressed'); play('click_down') }
+  function release(){
+    if(!down) return; down=false; btn.classList.remove('pressed'); play('click_up');
+    n++; try{ localStorage.setItem('pushme.site.count',String(n)) }catch(e){}
+    count.textContent='押した回数　'+n;
+    if(n===100) say('100回。アプリでやってください。');
+    else if(n>=nextTalk){ say(LINES[Math.floor(Math.random()*LINES.length)]); nextTalk=n+15+Math.floor(Math.random()*25) }
+    else if(says.textContent!=='カチッ。') say('カチッ。');
+  }
+  btn.addEventListener('pointerdown',function(e){ e.preventDefault(); press() });
+  btn.addEventListener('pointerup',release);
+  btn.addEventListener('pointerleave',function(){ if(down){ down=false; btn.classList.remove('pressed') } });
+  btn.addEventListener('pointercancel',function(){ if(down){ down=false; btn.classList.remove('pressed') } });
+  btn.addEventListener('keydown',function(e){ if((e.key===' '||e.key==='Enter')&&!e.repeat){ e.preventDefault(); press() } });
+  btn.addEventListener('keyup',function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); release() } });
+  btn.addEventListener('contextmenu',function(e){ e.preventDefault() });
+})();
+</script>
+</body>
+</html>
