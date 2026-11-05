@@ -1,0 +1,82 @@
+/* PUSH-ME ! — 紹介・サポート・プライバシーポリシー共通
+   アプリと同じ、白い壁に赤いボタンがひとつ。余計なものは置かない。 */
+*{box-sizing:border-box}
+:root{
+  --wall:#ebeaee; --wall2:#e2e1e6; --seam:rgba(0,0,0,.10); --card:#f6f5f8;
+  --ink:#1f1e22; --ink2:#5f5d66; --ink3:#8d8b94; --line:rgba(0,0,0,.10); --red:#b2402c;
+  color-scheme:light;
+}
+html{-webkit-text-size-adjust:100%; background:var(--wall)}
+body{
+  margin:0; background:var(--wall); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-size:15px; line-height:1.95; letter-spacing:.02em;
+}
+.wrap{max-width:700px; margin:0 auto; padding:0 16px 72px}
+.top{display:flex; flex-wrap:wrap; gap:6px 18px; padding:16px 0 0; font-size:12px; letter-spacing:.14em}
+.top a{color:var(--ink2); text-decoration:none}
+.top a:hover{color:var(--ink)}
+
+/* ── 壁とボタン（ページの上で実際に押せる） ── */
+.wall{position:relative; margin:22px -16px 0; padding:0 16px; background:var(--wall);
+  border-top:1px solid var(--seam); border-bottom:1px solid var(--seam)}
+.wall::before,.wall::after{content:""; position:absolute; top:0; bottom:0; width:10px;
+  background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.04) 40%,transparent)}
+.wall::before{left:0} .wall::after{right:0; transform:scaleX(-1)}
+.says{min-height:3.2em; margin:0; padding:34px 0 0; text-align:center; font-weight:700;
+  font-size:clamp(20px,5.6vw,26px); letter-spacing:.04em; line-height:1.6; color:var(--ink)}
+.says.fresh{animation:pop .5s ease-out}
+@keyframes pop{ from{opacity:0; translate:0 4px} to{opacity:1; translate:0 0} }
+.button{display:block; width:min(64vw,280px); aspect-ratio:1; margin:6px auto 0; padding:0; border:0; background:none;
+  cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; user-select:none; -webkit-user-select:none}
+.button img{display:block; width:100%; height:100%; pointer-events:none;
+  -webkit-mask:radial-gradient(circle, #000 52%, transparent 70%); mask:radial-gradient(circle, #000 52%, transparent 70%)}
+.button .down{display:none}
+.button.pressed .up{display:none}
+.button.pressed .down{display:block}
+.button:focus-visible{outline:2px solid var(--red); outline-offset:-24px; border-radius:50%}
+.count{margin:0; padding:2px 0 26px; text-align:center; font-size:12px; letter-spacing:.2em; color:var(--ink3); font-variant-numeric:tabular-nums}
+
+/* ── タイトル ── */
+.hero{text-align:center; padding:40px 0 26px}
+.hero .icon{width:96px; height:96px; border-radius:22px; display:block; margin:0 auto 20px;
+  box-shadow:0 0 0 1px var(--line), 0 14px 34px rgba(80,30,20,.16)}
+h1{font-weight:800; font-size:clamp(34px,10vw,48px); letter-spacing:.06em; line-height:1.2; margin:0}
+.hero .sub{margin:10px 0 0; color:var(--ink2); font-size:15px}
+.badge{display:inline-block; margin-top:22px; padding:10px 26px; border-radius:99px; text-decoration:none;
+  background:var(--red); color:#fff; font-size:14px; letter-spacing:.12em}
+a.badge:hover{filter:brightness(1.08)}
+.langs{margin-top:14px; font-size:13px}
+
+/* ── スクリーンショット ── */
+.shots{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
+  margin:0 -16px 12px; padding:6px 16px 18px; scrollbar-width:thin}
+.shots figure{margin:0; flex:none; width:min(46vw,220px); scroll-snap-align:start}
+.shots img{width:100%; height:auto; aspect-ratio:1320/2868; display:block; border-radius:18px;
+  border:1px solid var(--line); background:var(--wall2)}
+
+/* ── 本文 ── */
+.story{margin:30px 0 8px; text-align:center; font-size:16px; line-height:2.2}
+.story p{margin:0 0 18px}
+h2{font-weight:700; font-size:17px; letter-spacing:.06em; margin:46px 0 12px; display:flex; align-items:center; gap:12px; text-wrap:balance}
+h2::after{content:""; flex:1; height:1px; background:var(--line)}
+h3{font-weight:700; font-size:15px; margin:26px 0 6px}
+p, ul, ol{margin:0 0 12px}
+ul, ol{padding-left:1.3em}
+li{margin:3px 0}
+a{color:var(--red)}
+a:focus-visible{outline:2px solid var(--red); outline-offset:3px; border-radius:4px}
+.card{padding:18px 20px; margin:14px 0; border-radius:16px; border:1px solid var(--line); background:var(--card)}
+.card > :last-child{margin-bottom:0}
+.q{font-weight:700; margin:0 0 4px}
+.meta{color:var(--ink2); font-size:13px}
+.links{display:flex; flex-wrap:wrap; gap:10px; list-style:none; padding:0; margin:18px 0 0}
+.links a{display:inline-block; padding:6px 18px; border-radius:99px; border:1px solid var(--line); background:var(--card);
+  color:var(--ink); text-decoration:none; font-size:14px}
+.links a:hover{border-color:var(--red)}
+hr{border:0; height:1px; background:var(--line); margin:60px 0 0}
+.page-title{padding:44px 0 8px; text-align:center}
+.page-title h1{font-size:clamp(24px,6.5vw,32px); font-weight:700}
+.page-title p{color:var(--ink2); margin:8px 0 0; font-size:13px; letter-spacing:.2em}
+footer{margin-top:56px; text-align:center; font-size:12px; color:var(--ink2); line-height:2}
+footer a{color:var(--ink2)}
