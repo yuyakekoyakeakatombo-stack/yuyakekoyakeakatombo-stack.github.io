@@ -35,7 +35,7 @@ body{
 .button.pressed .up{display:none}
 .button.pressed .down{display:block}
 .button:focus-visible{outline:2px solid var(--red); outline-offset:-24px; border-radius:50%}
-.count{margin:0; padding:2px 0 26px; text-align:center; font-size:12px; letter-spacing:.2em; color:var(--ink3); font-variant-numeric:tabular-nums}
+.wall{padding-bottom:30px}
 
 /* ── タイトル ── */
 .hero{text-align:center; padding:40px 0 26px}

@@ -22,7 +22,6 @@
     <img class="up" src="img/button-up.jpg" alt="" width="560" height="560">
     <img class="down" src="img/button-down.jpg" alt="" width="560" height="560">
   </button>
-  <p class="count" id="count">押してみてください</p>
 </div>
 
 <header class="hero">
@@ -85,10 +84,9 @@
 <script>
 // ページの上のボタン。アプリのセリフは見せず、このページだけのひとことを、たまに。
 (function(){
-  var btn=document.getElementById('button'), says=document.getElementById('says'), count=document.getElementById('count');
+  var btn=document.getElementById('button'), says=document.getElementById('says');
   var n=0, down=false;
   try{ n=parseInt(localStorage.getItem('pushme.site.count')||'0',10)||0 }catch(e){}
-  if(n>0) count.textContent='押した回数　'+n;
 
   var LINES=['……ここは、Webサイトです。','続きは、アプリで。','押しすぎでは。','しゃべるのは、アプリのほうです。','まだ押す？','……。'];
   var nextTalk=12+Math.floor(Math.random()*16);
@@ -117,7 +115,6 @@
   function release(){
     if(!down) return; down=false; btn.classList.remove('pressed'); play('click_up');
     n++; try{ localStorage.setItem('pushme.site.count',String(n)) }catch(e){}
-    count.textContent='押した回数　'+n;
     if(n===100) say('100回。アプリでやってください。');
     else if(n>=nextTalk){ say(LINES[Math.floor(Math.random()*LINES.length)]); nextTalk=n+15+Math.floor(Math.random()*25) }
     else if(says.textContent!=='カチッ。') say('カチッ。');
