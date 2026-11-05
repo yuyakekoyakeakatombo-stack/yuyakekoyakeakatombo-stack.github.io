@@ -124,6 +124,9 @@ section{padding:clamp(72px,12vw,128px) 0}
 .status{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink2); margin:0 0 18px}
 .status::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--ink3)}
 .status.live::before{background:#4fa36a; box-shadow:0 0 0 4px rgba(79,163,106,.15)}
+.status.dev::before{background:var(--spark); box-shadow:0 0 0 4px var(--glow)}
+.stage.solo img{left:50%; top:50%; width:74%; translate:-50% -50%; border-radius:0; box-shadow:none}
+.app:hover .stage.solo img{transform:translateY(-4px)}
 .app-links{margin:auto 0 0; padding:16px 0 0; border-top:1px solid var(--rule); list-style:none;
   display:flex; flex-wrap:wrap; align-items:center; gap:6px 18px; font-size:13px}
 .app-links a{color:var(--ink2); text-decoration:none}
@@ -344,6 +347,25 @@ br.sp{display:none}
         </div>
       </article>
 
+      <article class="app reveal">
+        <div class="stage solo" aria-hidden="true"
+           style="--stage:radial-gradient(110% 90% at 50% 10%,#2a2016 0%,#16130f 55%,#0f0e0c 100%)">
+          <img src="roast-partner/img/logo.png" alt="" width="1200" height="307" loading="lazy">
+        </div>
+        <div class="app-body">
+          <div class="app-id">
+            <img src="roast-partner/img/icon.jpg" alt="" width="56" height="56">
+            <div><h3><a class="app-name" href="roast-partner/">Roast Partner</a></h3><p class="kind" lang="en">Coffee roast logger</p></div>
+          </div>
+          <p class="catch"><span class="ph">焙煎の温度を、</span><span class="ph">いっしょに見守る相棒。</span></p>
+          <p class="desc">コーヒー焙煎の温度をリアルタイムにグラフにして記録。焙煎から抽出までを1冊にまとめる、iPhone・iPad・Mac の焙煎ロガー。</p>
+          <p class="status dev">制作中</p>
+          <ul class="app-links">
+            <li><a class="more" href="roast-partner/">詳しく見る</a></li>
+          </ul>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -416,6 +438,10 @@ br.sp{display:none}
       <div class="foot-col">
         <h4>PUSH-ME !</h4>
         <ul><li><a href="push-me/">紹介</a></li><li><a href="push-me/support.html">サポート</a></li><li><a href="push-me/privacy.html">プライバシーポリシー</a></li></ul>
+      </div>
+      <div class="foot-col">
+        <h4>Roast Partner</h4>
+        <ul><li><a href="roast-partner/">紹介（制作中）</a></li></ul>
       </div>
     </div>
     <p class="copy">© 2026 Studio M.D.Q. (Yuya Kato)</p>

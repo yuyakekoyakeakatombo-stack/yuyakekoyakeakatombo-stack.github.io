@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Roast Partner（制作中）— コーヒー焙煎の温度をリアルタイムに記録し、焙煎から抽出までを1冊にまとめる、iPhone・iPad・Mac の焙煎ロガー。">
+<meta name="theme-color" content="#0f0e0c">
+<title>Roast Partner — 焙煎ロガー（制作中）</title>
+<link rel="apple-touch-icon" href="img/icon.jpg">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="../img/brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../brand.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="top"><a class="mdq-back" href="../#apps">アプリ一覧</a><a class="mdq-home" href="../" aria-label="Studio M.D.Q. ホーム"><span class="mdq-mark" aria-hidden="true"></span><span class="mdq-word" aria-hidden="true"></span></a></nav>
+
+<header class="hero">
+  <img class="icon" src="img/icon.jpg" alt="Roast Partner のアイコン" width="96" height="96">
+  <h1><img src="img/logo.png" alt="Roast Partner" width="1200" height="307"></h1>
+  <p class="kicker" lang="en">COFFEE ROAST LOGGER</p>
+  <p class="sub">焙煎の温度を、いっしょに見守る相棒。</p>
+  <span class="badge">制作中</span>
+</header>
+
+<main>
+<figure class="chart" aria-label="焙煎曲線のイメージ。豆の温度（BT）、排気の温度（ET）、上昇率（RoR）と、CHARGE から DROP までのマーカー" role="img">
+  <svg viewBox="-6 0 606 284" aria-hidden="true">
+    <defs>
+      <linearGradient id="btfill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e8a045" stop-opacity=".22"/><stop offset="1" stop-color="#e8a045" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g class="grid">
+      <line x1="40" y1="20" x2="580" y2="20"/><line x1="40" y1="80" x2="580" y2="80"/><line x1="40" y1="140" x2="580" y2="140"/>
+      <line x1="40" y1="200" x2="580" y2="200"/><line x1="40" y1="260" x2="580" y2="260"/>
+    </g>
+    <g class="axis">
+      <text x="34" y="23" text-anchor="end">250</text><text x="34" y="83" text-anchor="end">200</text><text x="34" y="143" text-anchor="end">150</text>
+      <text x="34" y="203" text-anchor="end">100</text><text x="34" y="263" text-anchor="end">50</text>
+      <text x="40" y="279">0:00</text><text x="203.6" y="279" text-anchor="middle">3:20</text><text x="367.3" y="279" text-anchor="middle">6:40</text><text x="530.9" y="279" text-anchor="middle">10:00</text>
+    </g>
+    <path class="area" d="M40.0 80.0C42.7 90.0 50.9 122.4 56.4 140.0C61.8 157.6 67.3 174.6 72.7 185.6C78.2 196.6 82.3 203.6 89.1 206.0C95.9 208.4 101.4 204.6 113.6 200.0C125.9 195.4 142.3 186.4 162.7 178.4C183.2 170.4 215.9 158.8 236.4 152.0C256.8 145.2 265.0 143.6 285.5 137.6C305.9 131.6 334.5 122.8 359.1 116.0C383.6 109.2 412.3 102.0 432.7 96.8C453.2 91.6 465.5 88.4 481.8 84.8C498.2 81.2 518.6 77.6 530.9 75.2C543.2 72.8 551.4 71.2 555.5 70.4L555.5 260L40 260Z"/>
+    <path class="curve et" pathLength="1" d="M40.0 41.6C44.1 45.6 56.4 60.4 64.5 65.6C72.7 70.8 76.8 72.8 89.1 72.8C101.4 72.8 113.6 68.8 138.2 65.6C162.7 62.4 203.6 57.0 236.4 53.6C269.1 50.2 301.8 47.6 334.5 45.2C367.3 42.8 395.9 41.0 432.7 39.2C469.5 37.4 535.0 35.2 555.5 34.4"/>
+    <path class="curve ror" pathLength="1" d="M121.8 161.2C128.6 162.9 147.7 167.8 162.7 171.6C177.7 175.4 195.5 180.3 211.8 184.1C228.2 187.9 242.5 192.2 260.9 194.5C279.3 196.7 299.8 196.0 322.3 197.6C344.8 199.2 373.4 202.1 395.9 203.8C418.4 205.6 438.9 206.1 457.3 208.0C475.7 209.9 490.0 213.2 506.4 215.3C522.7 217.4 547.3 219.6 555.5 220.5"/>
+    <path class="curve bt" pathLength="1" d="M40.0 80.0C42.7 90.0 50.9 122.4 56.4 140.0C61.8 157.6 67.3 174.6 72.7 185.6C78.2 196.6 82.3 203.6 89.1 206.0C95.9 208.4 101.4 204.6 113.6 200.0C125.9 195.4 142.3 186.4 162.7 178.4C183.2 170.4 215.9 158.8 236.4 152.0C256.8 145.2 265.0 143.6 285.5 137.6C305.9 131.6 334.5 122.8 359.1 116.0C383.6 109.2 412.3 102.0 432.7 96.8C453.2 91.6 465.5 88.4 481.8 84.8C498.2 81.2 518.6 77.6 530.9 75.2C543.2 72.8 551.4 71.2 555.5 70.4"/>
+    <g class="mk" style="animation-delay:.5s"><line x1="40" y1="20" x2="40" y2="260" stroke="#6bab7a"/><circle cx="40" cy="80" r="4" fill="#6bab7a"/><text x="45" y="16" fill="#6bab7a">CHARGE</text></g>
+    <g class="mk" style="animation-delay:1.1s"><line x1="89.1" y1="210" x2="89.1" y2="260" stroke="#6fc7c0"/><circle cx="89.1" cy="206" r="4" fill="#6fc7c0"/><text x="98" y="230" fill="#6fc7c0">TP</text></g>
+    <g class="mk" style="animation-delay:2.4s"><line x1="285.5" y1="20" x2="285.5" y2="260" stroke="#f0d080"/><circle cx="285.5" cy="137.6" r="4" fill="#f0d080"/><text x="290" y="16" fill="#f0d080">DRY END</text></g>
+    <g class="mk" style="animation-delay:4.2s"><line x1="481.8" y1="20" x2="481.8" y2="260" stroke="#e8a045"/><circle cx="481.8" cy="84.8" r="4" fill="#e8a045"/><text x="477" y="16" fill="#e8a045" text-anchor="end">FC START</text></g>
+    <g class="mk" style="animation-delay:5.6s"><line x1="555.5" y1="20" x2="555.5" y2="260" stroke="#7eb8d4"/><circle cx="555.5" cy="70.4" r="4" fill="#7eb8d4"/><text x="551" y="52" fill="#7eb8d4" text-anchor="end">DROP</text></g>
+  </svg>
+  <figcaption class="legend"><span><i style="background:#e8a045"></i>BT</span><span><i style="background:#7eb8d4"></i>ET</span><span><i style="background:#d45f3c"></i>RoR</span></figcaption>
+</figure>
+
+<section lang="ja">
+<p class="lead">豆の温度の上がり方を、<br>その場で、目で追える焙煎記録。</p>
+<p>Roast Partner は、コーヒー焙煎の温度をリアルタイムにグラフにして記録する、焙煎ロガーです。焙煎中の温度と操作、焙煎後の豆の評価、そして抽出の記録までを 1 冊にまとめ、次の焙煎に生かせるようにします。</p>
+
+<h2 lang="en">Features</h2>
+<div class="grid2">
+  <div class="card">
+    <h3>焙煎をリアルタイムに<small lang="en">ROAST</small></h3>
+    <ul>
+      <li>豆の温度（BT）・排気の温度（ET）・上昇率（RoR）をライブでグラフに</li>
+      <li>CHARGE から DROP までのマーカーと、DRY・MAILLARD・DEV のフェーズ表示</li>
+      <li>中点（TP）や排出の自動検出、RoR の予測線</li>
+      <li>火力・排気・ダンパーの操作も時系列で記録</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>ガイドとアラーム<small lang="en">GUIDE</small></h3>
+    <ul>
+      <li>過去の焙煎や、自分で描いた目標の曲線をガイドとして重ねる</li>
+      <li>予熱、経過時間、RoR、ガイドからのずれをアラームで知らせる</li>
+      <li>Bluetooth の温度計や一部の焙煎機とつないで、温度を自動で取り込む</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>記録と振り返り<small lang="en">HISTORY</small></h3>
+    <ul>
+      <li>焙煎の履歴と、最大 4 件の曲線の重ね合わせ比較</li>
+      <li>重量減少や DTR などの統計、カッピングの採点、焙煎色</li>
+      <li>生豆の在庫管理、PDF レポートや CSV の書き出し</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>抽出までつなげる<small lang="en">BREW</small></h3>
+    <ul>
+      <li>抽出方法・挽き目・湯温・粉と湯の量を、焙煎の記録にひもづけて残す</li>
+      <li>抽出タイマーと比率の計算</li>
+      <li>フレーバーホイールと、味わいのレーダーチャート</li>
+    </ul>
+  </div>
+</div>
+
+<h2 lang="en">Everywhere</h2>
+<p>iPhone・iPad・Mac で使え、記録は iCloud で同期します。焙煎機の横の iPad で記録して、あとから Mac でじっくり振り返る、といった使い方ができます。日本語と英語に対応します。</p>
+
+<p class="note">ただいま制作中です。機能や画面は、公開までに変わることがあります。公開時期が決まりましたら、このページでお知らせします。</p>
+</section>
+
+<hr>
+
+<section lang="en" id="en">
+<h2>Roast Partner</h2>
+<p>A coffee roast logger for iPhone, iPad and Mac, now in development. It graphs bean temperature (BT), environment temperature (ET) and rate of rise (RoR) live as you roast, records markers from CHARGE to DROP along with your heat, airflow and damper changes, and keeps your cupping notes and brew records together with each roast — synced through iCloud.</p>
+<p class="meta">Features and screens may change before release. Japanese and English.</p>
+</section>
+</main>
+
+<footer>Roast Partner<br>© 2026 <a href="../">Studio M.D.Q.</a></footer>
+</div>
+</body>
+</html>
