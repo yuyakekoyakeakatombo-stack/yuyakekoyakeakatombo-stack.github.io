@@ -1,4 +1,5 @@
 /* Lun-Lun — 紹介・サポート・プライバシーポリシー共通
+   昼の水彩は紙に描かれた絵なので、端末が暗い配色でも、いつも明るい紙の地で見せる。
    アプリと同じ、水彩の絵と生成りの紙。差し色は朱。ミニマルに、余白を広く。
    書体もアプリと同じ（和文 Zen Kaku Gothic New、欧文 Avenir Next）。 */
 *{box-sizing:border-box}
@@ -7,11 +8,7 @@
   --line:rgba(74,63,54,.14); --shu:#C25E48; --take:#5B7F6C;
   --jp:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
   --latin:"Avenir Next",Avenir,"Zen Kaku Gothic New",-apple-system,sans-serif;
-  color-scheme:light dark;
-}
-@media (prefers-color-scheme:dark){
-  :root{ --paper:#1E1B15; --card:#26221B; --ink:#E9E1CF; --ink2:#B5AB9B; --ink3:#8F887F;
-         --line:rgba(241,233,214,.13); --shu:#D97A63; --take:#7FA690; }
+  color-scheme:light;
 }
 html{-webkit-text-size-adjust:100%; background:var(--paper)}
 body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--jp);
@@ -30,7 +27,7 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
 .hero-text{text-align:center; padding:0 4px}
 @media (min-width:860px){ .hero-text{text-align:left} }
 
-/* 絵（昼・夜）。四辺は紙に溶けるように描かれているので、枠や影は付けない */
+/* 絵（昼）。配色に関係なく、いつも昼の絵。四辺は紙に溶けるように描かれているので、枠や影は付けない */
 .kv{position:relative; width:min(100%,440px); margin:0 auto; aspect-ratio:768/1376; overflow:hidden;
   /* 絵の紙とページの紙のわずかな差が四角く見えないよう、四辺をぼかして溶かす */
   -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 4%,#000 94%,transparent);
@@ -40,8 +37,6 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
 @media (max-width:859px){ .kv{width:min(100%,400px,calc(74svh * 768 / 1376))} }
 .kv img{position:absolute; display:block; user-select:none; -webkit-user-drag:none}
 .kv .plate{inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%}
-.kv-night{display:none}
-@media (prefers-color-scheme:dark){ .kv-day{display:none} .kv-night{display:block} }
 .kv .part{height:auto; will-change:transform}
 /* 昼 */
 .p-balloon{left:9.24%; top:22.38%; width:23.7%}
@@ -52,13 +47,6 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
 .sun-glow{position:absolute; left:75.91%; top:15.77%; width:44%; aspect-ratio:1; translate:-50% -50%; border-radius:50%;
   background:radial-gradient(circle, rgba(255,214,140,.55) 0 22%, rgba(255,214,140,.18) 40%, transparent 66%);
   mix-blend-mode:screen; opacity:.25; pointer-events:none}
-/* 夜 */
-.c1{left:36.45%; top:16.79%; width:39.19%}
-.c2{left:0; top:26.74%; width:33.2%}
-.c3{left:66.54%; top:26.31%; width:33.46%}
-.c4{left:12.89%; top:38.15%; width:41.15%}
-.glow{position:absolute; border-radius:50%; translate:-50% -50%; pointer-events:none; mix-blend-mode:screen; opacity:0;
-  background:radial-gradient(circle, rgba(255,236,190,.95) 0 18%, rgba(255,220,150,.35) 45%, transparent 70%)}
 
 @media (prefers-reduced-motion:no-preference){
   .p-balloon{animation:bTilt 9s ease-in-out infinite alternate, bX 13s ease-in-out infinite alternate, bY 7s ease-in-out infinite alternate}
@@ -67,11 +55,6 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
   .p-bird2{animation:bird2 6.4s ease-in-out infinite alternate}
   .p-bird3{animation:bird3 7.3s ease-in-out infinite alternate}
   .sun-glow{animation:sun 6.5s ease-in-out infinite alternate}
-  .c1{animation:cloud1 40s ease-in-out infinite alternate}
-  .c2{animation:cloudL 46s ease-in-out infinite alternate}
-  .c3{animation:cloudR 36s ease-in-out infinite alternate}
-  .c4{animation:cloud4 50s ease-in-out infinite alternate}
-  .glow{animation:twinkle var(--d,5s) ease-in-out var(--delay,0s) infinite}
 }
 /* 横・縦の量は、絵の幅・高さに対する割合（指示書の数値）を部品自身の大きさに換算したもの */
 @keyframes bTilt{ from{rotate:-1.8deg} to{rotate:1.8deg} }
@@ -82,19 +65,11 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
 @keyframes bird2{ from{translate:7.1% -11.2%} to{translate:-7.1% 11.2%} }
 @keyframes bird3{ from{translate:-6.3% 10.6%} to{translate:6.3% -10.6%} }
 @keyframes sun{ from{opacity:.12} to{opacity:.5} }
-@keyframes cloud1{ from{translate:-4.1% 0} to{translate:4.1% 0} }
-@keyframes cloud4{ from{translate:3.9% 0} to{translate:-3.9% 0} }
-@keyframes cloudL{ from{translate:0 0} to{translate:-4.8% 0} }
-@keyframes cloudR{ from{translate:0 0} to{translate:4.8% 0} }
-@keyframes twinkle{ 0%,100%{opacity:0} 50%{opacity:var(--peak,.7)} }
 
 /* 文字 */
 .wordmark{display:block; width:min(68vw,300px); aspect-ratio:900/288; margin:0 auto;
   background:url(img/wordmark.webp) center/contain no-repeat}
 @media (min-width:860px){ .wordmark{margin:0; width:320px} }
-@media (prefers-color-scheme:dark){
-  .wordmark{background:#F1E9D6; -webkit-mask:url(img/wordmark.webp) center/contain no-repeat; mask:url(img/wordmark.webp) center/contain no-repeat}
-}
 .tagline{margin:10px 0 0; font-family:var(--latin); font-weight:500; font-size:14.5px; letter-spacing:.07em; color:var(--ink2)}
 .hero h1{margin:30px 0 0; font-weight:700; font-size:clamp(24px,6.4vw,32px); line-height:1.6; letter-spacing:.06em; text-wrap:balance}
 .hero .intro{margin:18px 0 0; color:var(--ink2); line-height:2.1}
@@ -106,8 +81,6 @@ a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:
 
 /* ── 本文 ── */
 .spot{display:block; width:min(52vw,210px); height:auto; margin:72px auto 8px}
-.spot-n{display:none}
-@media (prefers-color-scheme:dark){ .spot-d{display:none} .spot-n{display:block} }
 h2{font-weight:700; font-size:clamp(19px,4.8vw,22px); letter-spacing:.08em; text-align:center; margin:12px 0 28px; line-height:1.6}
 .features{display:grid; gap:34px 48px}
 @media (min-width:760px){ .features{grid-template-columns:1fr 1fr} }
