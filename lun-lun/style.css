@@ -1,0 +1,157 @@
+/* Lun-Lun — 紹介・サポート・プライバシーポリシー共通
+   アプリと同じ、水彩の絵と生成りの紙。差し色は朱。ミニマルに、余白を広く。
+   書体もアプリと同じ（和文 Zen Kaku Gothic New、欧文 Avenir Next）。 */
+*{box-sizing:border-box}
+:root{
+  --paper:#F9F0E0; --card:#FFFDF8; --ink:#4A3F36; --ink2:#6F675F; --ink3:#9A938B;
+  --line:rgba(74,63,54,.14); --shu:#C25E48; --take:#5B7F6C;
+  --jp:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+  --latin:"Avenir Next",Avenir,"Zen Kaku Gothic New",-apple-system,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --paper:#1E1B15; --card:#26221B; --ink:#E9E1CF; --ink2:#B5AB9B; --ink3:#8F887F;
+         --line:rgba(241,233,214,.13); --shu:#D97A63; --take:#7FA690; }
+}
+html{-webkit-text-size-adjust:100%; background:var(--paper)}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--jp);
+  font-size:15.5px; line-height:2; letter-spacing:.03em; -webkit-font-smoothing:antialiased}
+.wrap{max-width:980px; margin:0 auto; padding:0 16px 80px}
+.narrow{max-width:640px; margin-left:auto; margin-right:auto}
+.top{display:flex; flex-wrap:wrap; gap:6px 18px; padding:16px 0 0; font-size:12px; letter-spacing:.14em; max-width:980px; margin:0 auto}
+.top a{color:var(--ink2); text-decoration:none}
+.top a:hover{color:var(--ink)}
+a{color:var(--shu)}
+a:focus-visible{outline:2px solid var(--shu); outline-offset:3px; border-radius:4px}
+
+/* ── ヒーロー：縦長の絵を片側に、まわりは紙 ── */
+.hero{display:grid; gap:8px; align-items:center; padding:12px 0 24px}
+@media (min-width:860px){ .hero{grid-template-columns:minmax(0,440px) 1fr; gap:56px; padding-top:28px} }
+.hero-text{text-align:center; padding:0 4px}
+@media (min-width:860px){ .hero-text{text-align:left} }
+
+/* 絵（昼・夜）。四辺は紙に溶けるように描かれているので、枠や影は付けない */
+.kv{position:relative; width:min(100%,440px); margin:0 auto; aspect-ratio:768/1376; overflow:hidden;
+  /* 絵の紙とページの紙のわずかな差が四角く見えないよう、四辺をぼかして溶かす */
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 4%,#000 94%,transparent);
+  -webkit-mask-composite:source-in;
+  mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 4%,#000 94%,transparent);
+  mask-composite:intersect}
+@media (max-width:859px){ .kv{width:min(100%,400px,calc(74svh * 768 / 1376))} }
+.kv img{position:absolute; display:block; user-select:none; -webkit-user-drag:none}
+.kv .plate{inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%}
+.kv-night{display:none}
+@media (prefers-color-scheme:dark){ .kv-day{display:none} .kv-night{display:block} }
+.kv .part{height:auto; will-change:transform}
+/* 昼 */
+.p-balloon{left:9.24%; top:22.38%; width:23.7%}
+.p-boat{left:76.09%; top:55.09%; width:15.1%; transform-origin:50% 100%}
+.p-bird1{left:44.66%; top:27.18%; width:7.68%}
+.p-bird2{left:34.12%; top:32.77%; width:8.46%}
+.p-bird3{left:55.47%; top:37.5%; width:9.51%}
+.sun-glow{position:absolute; left:75.91%; top:15.77%; width:44%; aspect-ratio:1; translate:-50% -50%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,214,140,.55) 0 22%, rgba(255,214,140,.18) 40%, transparent 66%);
+  mix-blend-mode:screen; opacity:.25; pointer-events:none}
+/* 夜 */
+.c1{left:36.45%; top:16.79%; width:39.19%}
+.c2{left:0; top:26.74%; width:33.2%}
+.c3{left:66.54%; top:26.31%; width:33.46%}
+.c4{left:12.89%; top:38.15%; width:41.15%}
+.glow{position:absolute; border-radius:50%; translate:-50% -50%; pointer-events:none; mix-blend-mode:screen; opacity:0;
+  background:radial-gradient(circle, rgba(255,236,190,.95) 0 18%, rgba(255,220,150,.35) 45%, transparent 70%)}
+
+@media (prefers-reduced-motion:no-preference){
+  .p-balloon{animation:bTilt 9s ease-in-out infinite alternate, bX 13s ease-in-out infinite alternate, bY 7s ease-in-out infinite alternate}
+  .p-boat{animation:boat 4.2s ease-in-out infinite alternate}
+  .p-bird1{animation:bird1 5.6s ease-in-out infinite alternate}
+  .p-bird2{animation:bird2 6.4s ease-in-out infinite alternate}
+  .p-bird3{animation:bird3 7.3s ease-in-out infinite alternate}
+  .sun-glow{animation:sun 6.5s ease-in-out infinite alternate}
+  .c1{animation:cloud1 40s ease-in-out infinite alternate}
+  .c2{animation:cloudL 46s ease-in-out infinite alternate}
+  .c3{animation:cloudR 36s ease-in-out infinite alternate}
+  .c4{animation:cloud4 50s ease-in-out infinite alternate}
+  .glow{animation:twinkle var(--d,5s) ease-in-out var(--delay,0s) infinite}
+}
+/* 横・縦の量は、絵の幅・高さに対する割合（指示書の数値）を部品自身の大きさに換算したもの */
+@keyframes bTilt{ from{rotate:-1.8deg} to{rotate:1.8deg} }
+@keyframes bX{ from{translate:-5.9% 0} to{translate:5.9% 0} }
+@keyframes bY{ from{transform:translateY(-5.1%)} to{transform:translateY(5.1%)} }
+@keyframes boat{ from{rotate:-.55deg} to{rotate:.55deg} }
+@keyframes bird1{ from{translate:-7.8% -12.5%} to{translate:7.8% 12.5%} }
+@keyframes bird2{ from{translate:7.1% -11.2%} to{translate:-7.1% 11.2%} }
+@keyframes bird3{ from{translate:-6.3% 10.6%} to{translate:6.3% -10.6%} }
+@keyframes sun{ from{opacity:.12} to{opacity:.5} }
+@keyframes cloud1{ from{translate:-4.1% 0} to{translate:4.1% 0} }
+@keyframes cloud4{ from{translate:3.9% 0} to{translate:-3.9% 0} }
+@keyframes cloudL{ from{translate:0 0} to{translate:-4.8% 0} }
+@keyframes cloudR{ from{translate:0 0} to{translate:4.8% 0} }
+@keyframes twinkle{ 0%,100%{opacity:0} 50%{opacity:var(--peak,.7)} }
+
+/* 文字 */
+.wordmark{display:block; width:min(68vw,300px); aspect-ratio:900/288; margin:0 auto;
+  background:url(img/wordmark.webp) center/contain no-repeat}
+@media (min-width:860px){ .wordmark{margin:0; width:320px} }
+@media (prefers-color-scheme:dark){
+  .wordmark{background:#F1E9D6; -webkit-mask:url(img/wordmark.webp) center/contain no-repeat; mask:url(img/wordmark.webp) center/contain no-repeat}
+}
+.tagline{margin:10px 0 0; font-family:var(--latin); font-weight:500; font-size:14.5px; letter-spacing:.07em; color:var(--ink2)}
+.hero h1{margin:30px 0 0; font-weight:700; font-size:clamp(24px,6.4vw,32px); line-height:1.6; letter-spacing:.06em; text-wrap:balance}
+.hero .intro{margin:18px 0 0; color:var(--ink2); line-height:2.1}
+.badge{display:inline-block; margin-top:28px; padding:9px 26px; border-radius:99px; border:1.5px solid var(--shu);
+  color:var(--shu); font-weight:700; font-size:14px; letter-spacing:.14em}
+.icon{width:72px; height:72px; border-radius:17px; display:block; margin:0 auto 22px; box-shadow:0 0 0 1px var(--line)}
+@media (min-width:860px){ .icon{margin-left:0} }
+.langs{margin-top:16px; font-size:13px}
+
+/* ── 本文 ── */
+.spot{display:block; width:min(52vw,210px); height:auto; margin:72px auto 8px}
+.spot-n{display:none}
+@media (prefers-color-scheme:dark){ .spot-d{display:none} .spot-n{display:block} }
+h2{font-weight:700; font-size:clamp(19px,4.8vw,22px); letter-spacing:.08em; text-align:center; margin:12px 0 28px; line-height:1.6}
+.features{display:grid; gap:34px 48px}
+@media (min-width:760px){ .features{grid-template-columns:1fr 1fr} }
+.feature h3{margin:0 0 6px; font-weight:700; font-size:16.5px; letter-spacing:.05em; line-height:1.7}
+.feature h3 b{color:var(--shu); font-family:var(--latin); font-weight:600; margin-right:10px; font-size:14px}
+.feature p{margin:0; color:var(--ink2)}
+.times{display:flex; gap:10px; margin:14px 0 0}
+.times figure{margin:0; flex:1}
+.times img{display:block; width:100%; height:auto; aspect-ratio:768/1376; object-fit:cover; border-radius:10px}
+.times figcaption{text-align:center; font-size:12px; color:var(--ink3); margin-top:4px}
+.calm{text-align:center; color:var(--ink2); line-height:2.2; margin:0}
+.calm strong{color:var(--ink); font-weight:700}
+
+/* 無料と Plus */
+.plus-lead{text-align:center; color:var(--ink2); margin:0 0 22px}
+.compare{width:100%; border-collapse:collapse; font-size:14px; line-height:1.7}
+.compare th,.compare td{padding:10px 8px; border-bottom:1px solid var(--line); text-align:center; vertical-align:middle}
+.compare th:first-child,.compare td:first-child{text-align:left; padding-left:2px}
+.compare thead th{font-weight:700; font-size:13px; letter-spacing:.08em; color:var(--ink2); border-bottom:1.5px solid var(--line)}
+.compare thead th:last-child{color:var(--shu)}
+.compare td{color:var(--ink2)}
+.compare td:first-child{color:var(--ink)}
+.price{text-align:center; font-size:13px; color:var(--ink3); margin:16px 0 0}
+
+.meta{color:var(--ink3); font-size:13px; text-align:center}
+.links{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; list-style:none; padding:0; margin:20px 0 0}
+.links a{display:inline-block; padding:6px 18px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; font-size:14px; background:var(--card)}
+.links a:hover{border-color:var(--shu)}
+hr{border:0; height:1px; background:var(--line); margin:72px 0 0}
+.en h2{margin-top:56px}
+.en .feature h3{font-family:var(--latin); font-weight:600; letter-spacing:.01em}
+footer{margin-top:64px; text-align:center; font-size:12px; color:var(--ink3); line-height:2}
+footer a{color:var(--ink3)}
+
+/* サポート・プライバシーポリシー */
+.page-title{padding:44px 0 6px; text-align:center}
+.page-title h1{font-weight:700; font-size:clamp(23px,6vw,30px); letter-spacing:.08em; margin:0}
+.page-title p{color:var(--ink3); margin:8px 0 0; font-family:var(--latin); font-size:12.5px; letter-spacing:.18em}
+.doc h2{text-align:left; font-size:17px; margin:42px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line)}
+.doc h3{font-size:15.5px; margin:26px 0 6px}
+.doc p,.doc ul{margin:0 0 12px}
+.doc ul{padding-left:1.3em}
+.doc li{margin:3px 0}
+.qa{padding:18px 20px; margin:12px 0; border-radius:16px; background:var(--card); border:1px solid var(--line)}
+.qa .q{font-weight:700; margin:0 0 4px}
+.qa p:last-child{margin:0; color:var(--ink2)}
+.contact{padding:16px 20px; border-radius:14px; background:var(--card); border:1px solid var(--line)}
