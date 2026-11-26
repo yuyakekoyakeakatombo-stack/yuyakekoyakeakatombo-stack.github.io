@@ -1,0 +1,68 @@
+/* Glow Jar — 紹介・サポート・プライバシーポリシー共通
+   アプリと同じ、夜の瓶の暗がりに、キノコの淡い水色の光。光はゆっくり強弱する。 */
+*{box-sizing:border-box}
+:root{
+  --bg:#08090b; --panel:rgba(102,230,217,.035); --ink:rgba(240,246,244,.92); --ink2:rgba(220,234,230,.62); --ink3:rgba(220,234,230,.42);
+  --line:rgba(160,230,220,.13); --glow:#66e6d9; --tint:#73c7bd; --lamp:#faedd1;
+  color-scheme:dark;
+}
+html{-webkit-text-size-adjust:100%; background:var(--bg)}
+body{margin:0; color:var(--ink);
+  background:radial-gradient(90% 50% at 50% 0%, rgba(102,230,217,.08), transparent 70%), var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-size:15px; line-height:2; letter-spacing:.03em}
+.wrap{max-width:680px; margin:0 auto; padding:0 16px 72px}
+.top{display:flex; flex-wrap:wrap; gap:6px 18px; padding:16px 0 0; font-size:12px; letter-spacing:.14em}
+.top a{color:var(--ink2); text-decoration:none}
+.top a:hover{color:var(--ink)}
+a{color:var(--tint)}
+a:focus-visible{outline:2px solid var(--glow); outline-offset:3px; border-radius:4px}
+
+/* ── ヒーロー ── */
+.hero{text-align:center; padding:60px 0 30px}
+.icon-wrap{position:relative; width:108px; margin:0 auto 30px}
+.icon-wrap::before{content:""; position:absolute; left:50%; top:46%; width:280%; aspect-ratio:1; translate:-50% -50%; border-radius:50%;
+  background:radial-gradient(circle, rgba(102,230,217,.22) 0%, transparent 62%); pointer-events:none}
+.icon{position:relative; display:block; width:108px; height:108px; border-radius:25px; box-shadow:0 0 0 1px var(--line)}
+@media (prefers-reduced-motion:no-preference){
+  .icon-wrap::before{animation:breathe 7s ease-in-out infinite}
+}
+@keyframes breathe{ 0%,100%{opacity:1; scale:1} 50%{opacity:.45; scale:.86} }
+h1{font-weight:300; font-size:clamp(34px,9.5vw,46px); letter-spacing:.08em; line-height:1.2; margin:0}
+.hero .sub{margin:12px 0 0; color:var(--ink2); font-size:15px; letter-spacing:.1em}
+.badge{display:inline-block; margin-top:26px; padding:9px 26px; border-radius:99px; border:1px solid rgba(102,230,217,.45);
+  color:var(--glow); font-size:14px; letter-spacing:.14em}
+.langs{margin-top:16px; font-size:13px}
+
+/* ── 本文 ── */
+.story{margin:34px 0 10px; text-align:center; font-size:16px; line-height:2.25; color:var(--ink)}
+@media (max-width:599px){ .story{text-align:left; font-size:15.5px; line-height:2.1} .story p{margin:0 0 10px} }
+.story p{margin:0 0 6px}
+h2{font-weight:400; font-size:17px; letter-spacing:.08em; margin:46px 0 12px; display:flex; align-items:center; gap:12px; text-wrap:balance}
+h2::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent)}
+h3{font-weight:600; font-size:15px; margin:26px 0 6px}
+p, ul{margin:0 0 12px}
+ul{padding-left:1.3em}
+li{margin:3px 0}
+li::marker{color:var(--tint)}
+.card{padding:18px 20px; margin:14px 0; border-radius:18px; border:1px solid var(--line); background:var(--panel)}
+.card > :last-child{margin-bottom:0}
+.features{list-style:none; padding:0; margin:30px auto 0; max-width:440px}
+.features li{position:relative; padding:12px 0 12px 26px; border-bottom:1px solid var(--line); margin:0}
+.features li:last-child{border-bottom:0}
+.features li::before{content:""; position:absolute; left:4px; top:50%; width:7px; height:7px; translate:0 -50%; border-radius:50%;
+  background:var(--glow); box-shadow:0 0 10px rgba(102,230,217,.7)}
+.q{font-weight:600; margin:0 0 4px}
+.card p{color:var(--ink2)}
+.meta{color:var(--ink2); font-size:13px}
+.center{text-align:center}
+.links{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; list-style:none; padding:0; margin:18px 0 0}
+.links a{display:inline-block; padding:6px 18px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; font-size:14px}
+.links a:hover{border-color:var(--glow)}
+.contact{padding:16px 20px; border-radius:14px; border:1px solid var(--line); background:var(--panel)}
+hr{border:0; height:1px; background:var(--line); margin:60px 0 0}
+.page-title{padding:44px 0 8px; text-align:center}
+.page-title h1{font-size:clamp(24px,6.5vw,32px); font-weight:300}
+.page-title p{color:var(--ink3); margin:8px 0 0; font-size:12.5px; letter-spacing:.2em}
+footer{margin-top:56px; text-align:center; font-size:12px; color:var(--ink3); line-height:2}
+footer a{color:var(--ink3)}
